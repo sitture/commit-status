@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CommitStatus",
+  "name": "CommitStatus - Current Github commit statuses from your projects.",
+  "description": "Shows a list of projects with Github commit status.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +11,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
