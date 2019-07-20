@@ -28,5 +28,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "homepage": "https://sitture.github.io/commit-status",
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
   }
 }
