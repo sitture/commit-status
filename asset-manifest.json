@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/commit-status/static/css/main.2cce8147.chunk.css",
-    "main.js": "/commit-status/static/js/main.6bb05046.chunk.js",
-    "main.js.map": "/commit-status/static/js/main.6bb05046.chunk.js.map",
+    "main.css": "/commit-status/static/css/main.101b6490.chunk.css",
+    "main.js": "/commit-status/static/js/main.0755820f.chunk.js",
+    "main.js.map": "/commit-status/static/js/main.0755820f.chunk.js.map",
     "runtime~main.js": "/commit-status/static/js/runtime~main.027e0b47.js",
     "runtime~main.js.map": "/commit-status/static/js/runtime~main.027e0b47.js.map",
-    "static/js/2.f0862482.chunk.js": "/commit-status/static/js/2.f0862482.chunk.js",
-    "static/js/2.f0862482.chunk.js.map": "/commit-status/static/js/2.f0862482.chunk.js.map",
+    "static/js/2.d2d68f9a.chunk.js": "/commit-status/static/js/2.d2d68f9a.chunk.js",
+    "static/js/2.d2d68f9a.chunk.js.map": "/commit-status/static/js/2.d2d68f9a.chunk.js.map",
     "index.html": "/commit-status/index.html",
-    "precache-manifest.b1f134133109471845d58377c69c6751.js": "/commit-status/precache-manifest.b1f134133109471845d58377c69c6751.js",
+    "precache-manifest.9059d736f0d5363f68b96de5a8e751a0.js": "/commit-status/precache-manifest.9059d736f0d5363f68b96de5a8e751a0.js",
     "service-worker.js": "/commit-status/service-worker.js",
-    "static/css/main.2cce8147.chunk.css.map": "/commit-status/static/css/main.2cce8147.chunk.css.map",
-    "static/media/logo.svg": "/commit-status/static/media/logo.5d5d9eef.svg"
+    "static/css/main.101b6490.chunk.css.map": "/commit-status/static/css/main.101b6490.chunk.css.map"
   }
 }
