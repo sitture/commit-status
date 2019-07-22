@@ -1,0 +1,9 @@
+.project {
+  display: block;
+  padding: 10px;
+  margin: 0 0 10px 0;
+  color: black;
+  background: #eee;
+  font-family: 'Cairo', cursive;
+  font-weight: bold
+}

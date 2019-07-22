@@ -1,0 +1,13 @@
+{
+    "defaultStatus": "pending",
+    "projects": [
+        "sitture/docker-django-cd",
+        "sitture/cucumber-jvm-extentreport",
+        "sitture/fitnesse-quickstart",
+        "sitture/env-config",
+        "sitture/techmiya-commercials",
+        "sitture/trade-motors",
+        "sitture/docker-gauge-java",
+        "sitture/gauge-reportserver"
+    ]
+}
