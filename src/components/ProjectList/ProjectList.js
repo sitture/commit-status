@@ -20,7 +20,7 @@ export default class ProjectList extends React.Component {
         projects: processedProjects,
       });
       const params = {};
-      if (process.env) {
+      if (process.env.REACT_APP_GITHUB_TOKEN) {
         params.headers = {
           Authorization: process.env.REACT_APP_GITHUB_TOKEN,
         };
