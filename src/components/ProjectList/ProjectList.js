@@ -61,7 +61,7 @@ export default class ProjectList extends React.Component {
         {this.state.projectStatus}
         {this.state.projects.map(function(project, index) {
           return (
-            <div key={index} className="project">
+            <div key={index} className={`project ${project.status}`}>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -69,7 +69,7 @@ export default class ProjectList extends React.Component {
               >
                 {project.name}
               </a>{' '}
-              - {project.status}
+              - <span class={project.status}>{project.status}</span>
             </div>
           );
         })}

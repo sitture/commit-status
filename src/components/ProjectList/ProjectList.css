@@ -7,3 +7,23 @@
   font-family: 'Cairo', cursive;
   font-weight: bold
 }
+
+.project a:link {
+  color: black
+}
+
+.project a:visited {
+  color: black
+}
+
+.project span.success {
+  color: green;
+}
+
+.project span.pending {
+  color: orange;
+}
+
+.project span.failed {
+  color: red;
+}
