@@ -1,10 +1,13 @@
 {
     "defaultStatus": "pending",
     "projects": [
-        "sky-uk/id-rango-projects",
-        "sky-uk/id-oogway",
-        "sky-uk/id-cybertron",
-        "sky-uk/id-europa-e2e",
-        "sky-uk/id-core-platform"
+        "sitture/docker-django-cd",
+        "sitture/cucumber-jvm-extentreport",
+        "sitture/fitnesse-quickstart",
+        "sitture/env-config",
+        "sitture/techmiya-commercials",
+        "sitture/trade-motors",
+        "sitture/docker-gauge-java",
+        "sitture/gauge-reportserver"
     ]
 }
