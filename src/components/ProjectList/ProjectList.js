@@ -14,7 +14,7 @@ export default class ProjectList extends React.Component {
     this.serverRequest = axios.get(this.props.source).then(function(result) {
       var status = result.data.defaultStatus;
       result.data.projects.map(function(project) {
-        processedProjects.push({ name: project, status: status });
+        return processedProjects.push({ name: project, status: status });
       });
       th.setState({
         projects: processedProjects,
@@ -25,7 +25,6 @@ export default class ProjectList extends React.Component {
           Authorization: process.env.REACT_APP_GITHUB_TOKEN,
         };
       }
-      console.log(params);
       let promiseArray = processedProjects.map(project =>
         axios.get(
           `https://api.github.com/repos/${project.name}/commits/master/status`,
@@ -38,7 +37,7 @@ export default class ProjectList extends React.Component {
             console.log('values', results);
             processedProjects = [];
             results.map(function(project) {
-              processedProjects.push({
+              return processedProjects.push({
                 name: project.data.repository.full_name,
                 status: project.data.state,
               });
@@ -69,7 +68,7 @@ export default class ProjectList extends React.Component {
               >
                 {project.name}
               </a>{' '}
-              - <span class={project.status}>{project.status}</span>
+              - <span className={project.status}>{project.status}</span>
             </div>
           );
         })}

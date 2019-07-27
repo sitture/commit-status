@@ -24,6 +24,6 @@
   color: orange;
 }
 
-.project span.failed {
+.project span.failure {
   color: red;
 }
