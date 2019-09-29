@@ -8,9 +8,9 @@ export default class ProjectList extends React.Component {
     projects: [],
   };
 
-  componentDidMount() {
-    var th = this;
-    var processedProjects = [];
+  componentDidMount =() => {
+    let th = this;
+    let processedProjects = [];
     this.serverRequest = axios.get(this.props.source).then(function(result) {
       var status = result.data.defaultStatus;
       result.data.projects.map(function(project) {
@@ -54,7 +54,18 @@ export default class ProjectList extends React.Component {
     });
   }
 
-  render() {
+  handlePress = (name) => {
+    
+    let filteredArray = this.state.projects.filter((project)=>project.name!==name)
+    
+    this.setState({
+      projects : filteredArray
+    })
+  }
+
+
+  render = () => {
+   let handlePress = this.handlePress;
     return (
       <div>
         {this.state.projectStatus}
@@ -69,6 +80,9 @@ export default class ProjectList extends React.Component {
                 {project.name}
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
+              <button  onClick={(index)=>handlePress(project.name)}>
+                Remove Repo
+              </button>  
             </div>
           );
         })}
