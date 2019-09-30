@@ -18,7 +18,13 @@ export default class ProjectList extends React.Component {
         return processedProjects.push({ name: project, status: status });
       });
       th.setState({
-        projects: processedProjects,
+        projects: processedProjects.sort((a, b) => {
+          if (a.name < b.name) 
+            return -1
+          else if (a.name > b.name)
+            return 1
+          return a.status > b.status ? -1 : 1
+        }),
       });
       const params = {};
       if (process.env.REACT_APP_GITHUB_TOKEN) {
