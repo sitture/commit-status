@@ -69,12 +69,28 @@ export default class ProjectList extends React.Component {
     })
   }
 
+  addProject = (project) => {
+    let flag = 0;
+    this.state.projects.forEach(proj=>{
+      if(proj.name===project.name&&proj.status===project.status){
+        flag =1;
+    
+      }
+    })
+
+    if(!(flag===1)){
+    let newArray = [ ...this.state.projects, project ];
+   
+    this.setState({ projects : newArray })
+    }
+  }
 
   render = () => {
    let handlePress = this.handlePress;
+   let addProject = this.addProject;
     return (
       <div>
-        <Search/>
+        <Search addProject = {(project)=>addProject(project)}/>
         {this.state.projectStatus}
         {this.state.projects.map(function(project, index) {
           return (

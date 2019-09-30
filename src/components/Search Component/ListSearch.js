@@ -1,20 +1,16 @@
 import React from 'react';
 import '../ProjectList/ProjectList.css';
+import './Search.css';
 export default class ListSearch extends React.Component {
-  state = {
-    project: null,
-    input:""
-  };
 
 
 
-  handlePress = (name) => {
-    
-   
-    
-    // this.setState({
-    //   projects : filteredArray
-    // })
+  handlePress = (project) => {
+    let obj = {
+      name : project.repository.full_name,
+      status : project.state
+    }
+    this.props.addProject(obj)
   }
 
 
@@ -22,7 +18,8 @@ export default class ListSearch extends React.Component {
   let project=this.props.project;
   
     return (
-        <div className={`project ${project.state}`}>
+        <div>
+      <span>Search Results:     </ span>
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -30,8 +27,8 @@ export default class ListSearch extends React.Component {
         >
           {project.repository.full_name}
         </a>{' '}
-        - <span className={project.state}>{project.state}</span>
-        <button  onClick={()=>this.handlePress(project.repository.full_name)}>
+      
+        <button  onClick={()=>this.handlePress(project)}>
           Add Repo
         </button>  
       </div>

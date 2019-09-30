@@ -1,5 +1,6 @@
 import React from 'react';
 import ListSearch from './ListSearch';
+import '../ProjectList/ProjectList.css';
 import './Search.css';
 
 var axios = require('axios');
@@ -33,12 +34,15 @@ export default class Search extends React.Component {
   
 
   }
-
+handlePress=(e)=>{
+  e.preventDefault();
+  this.setState({project:null})
+}
 
   render = () => {
   
     return (
-      <div className="search">
+      <div className="search project">
          <form onSubmit={this.handleSubmit}>
         <input
           className="input"
@@ -50,8 +54,13 @@ export default class Search extends React.Component {
         <button className="button" type="submit">
           Search
         </button>
+        {
+          this.state.project?<button onClick={this.handlePress}  className="button">
+          Remove Results
+        </button>:null
+        }
       </form>
-      {this.state.project?<ListSearch project={this.state.project}/>:null}
+      {this.state.project?<ListSearch addProject={(project)=>this.props.addProject(project)} project={this.state.project}/>:null}
       </div>
     );
   }

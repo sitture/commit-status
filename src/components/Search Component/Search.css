@@ -1,12 +1,14 @@
 .search{
     margin-bottom: 10px;
+    height: 100px;
 }
 .search .input{
     padding: 5px;
     font-size: 1rem;
-    width: 40%;
+    width: 20%;
 }
 .search .button{
     padding: 5px;
     font-size: 1rem;
+    margin-left : 10px;
 }
