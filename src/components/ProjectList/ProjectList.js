@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProjectList.css';
+import Search from '../Search Component/Search';
 
 var axios = require('axios');
 
@@ -25,11 +26,16 @@ export default class ProjectList extends React.Component {
           Authorization: process.env.REACT_APP_GITHUB_TOKEN,
         };
       }
-      let promiseArray = processedProjects.map(project =>
+    
+      let promiseArray = processedProjects.map(project =>{
+        console.log(`https://api.github.com/repos/${project.name}/commits/master/status`)
+        return(
         axios.get(
           `https://api.github.com/repos/${project.name}/commits/master/status`,
           params
         )
+        )
+      }
       );
       Promise.all(promiseArray)
         .then(
@@ -68,6 +74,7 @@ export default class ProjectList extends React.Component {
    let handlePress = this.handlePress;
     return (
       <div>
+        <Search/>
         {this.state.projectStatus}
         {this.state.projects.map(function(project, index) {
           return (
@@ -80,8 +87,8 @@ export default class ProjectList extends React.Component {
                 {project.name}
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
-              <button  onClick={(index)=>handlePress(project.name)}>
-                Remove Repo
+              <button className="remove"  onClick={(index)=>handlePress(project.name)}>
+                Remove
               </button>  
             </div>
           );

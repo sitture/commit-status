@@ -27,3 +27,13 @@
 .project span.failure {
   color: red;
 }
+
+.project button.remove{
+  color: red;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: .9rem;
+}
