@@ -60,6 +60,26 @@ export default class ProjectList extends React.Component {
     });
   }
 
+  handleProjectClick(index){
+    this.setState({
+      projects: this.state.projects.map(async (project, pIndex) => {
+        if (pIndex !== index){
+          project.isOpen = false
+          return project
+        }
+        if (pIndex === index && project.isOpen){
+          project.isOpen = false
+          return project
+        }
+        project.subStatus = project.subStatus 
+          ? project.subStatus 
+          : await axios.get(`https://api.github.com/repos/${project.name}/commits/master/status`)
+        project.isOpen = true
+        return project
+      })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -67,6 +87,7 @@ export default class ProjectList extends React.Component {
         {this.state.projects.map(function(project, index) {
           return (
             <div key={index} className={`project ${project.status}`}>
+              <button onClick={() => this.handleProjectClick(index)}>More</button>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -75,6 +96,13 @@ export default class ProjectList extends React.Component {
                 {project.name}
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
+              {
+                project.isOpen && (
+                  <div>
+                    { project.subStatus }
+                  </div>
+                )
+              }
             </div>
           );
         })}
