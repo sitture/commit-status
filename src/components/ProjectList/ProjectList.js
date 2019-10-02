@@ -1,6 +1,8 @@
 import React from 'react';
 import './ProjectList.css';
 
+import ProjectDetails from '../ProjectDetails/ProjectDetails';
+
 var axios = require('axios');
 
 export default class ProjectList extends React.Component {
@@ -62,18 +64,11 @@ export default class ProjectList extends React.Component {
 
   handleProjectClick(index){
     this.setState({
-      projects: this.state.projects.map(async (project, pIndex) => {
-        if (pIndex !== index){
+      projects: this.state.projects.map((project, pIndex) => {
+        if (pIndex !== index || (pIndex === index && project.isOpen)){
           project.isOpen = false
           return project
         }
-        if (pIndex === index && project.isOpen){
-          project.isOpen = false
-          return project
-        }
-        project.subStatus = project.subStatus 
-          ? project.subStatus 
-          : await axios.get(`https://api.github.com/repos/${project.name}/commits/master/status`)
         project.isOpen = true
         return project
       })
@@ -84,10 +79,11 @@ export default class ProjectList extends React.Component {
     return (
       <div>
         {this.state.projectStatus}
-        {this.state.projects.map(function(project, index) {
+        {this.state.projects.map((project, index) => {
           return (
-            <div key={index} className={`project ${project.status}`}>
-              <button onClick={() => this.handleProjectClick(index)}>More</button>
+            <div key={index} className={`project ${project.status}`} 
+              onClick={() => this.handleProjectClick(index)}
+              >
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -97,11 +93,7 @@ export default class ProjectList extends React.Component {
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
               {
-                project.isOpen && (
-                  <div>
-                    { project.subStatus }
-                  </div>
-                )
+                project.isOpen && <ProjectDetails name={project.name}/>
               }
             </div>
           );
