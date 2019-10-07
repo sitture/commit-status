@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProjectList.css';
+import ProjectDetails from '../ProjectDetails/ProjectDetails';
 
 var axios = require('axios');
 
@@ -67,6 +68,7 @@ export default class ProjectList extends React.Component {
         {this.state.projects.map(function(project, index) {
           return (
             <div key={index} className={`project ${project.status}`}>
+              <span>Repository - </span>
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -75,6 +77,7 @@ export default class ProjectList extends React.Component {
                 {project.name}
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
+              <ProjectDetails name={project.name}/>
             </div>
           );
         })}
