@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/commit-status/static/css/main.57a16d07.chunk.css",
-    "main.js": "/commit-status/static/js/main.9a845d3e.chunk.js",
-    "main.js.map": "/commit-status/static/js/main.9a845d3e.chunk.js.map",
+    "main.css": "/commit-status/static/css/main.fd25f13d.chunk.css",
+    "main.js": "/commit-status/static/js/main.af472fde.chunk.js",
+    "main.js.map": "/commit-status/static/js/main.af472fde.chunk.js.map",
     "runtime~main.js": "/commit-status/static/js/runtime~main.027e0b47.js",
     "runtime~main.js.map": "/commit-status/static/js/runtime~main.027e0b47.js.map",
-    "static/js/2.d2d68f9a.chunk.js": "/commit-status/static/js/2.d2d68f9a.chunk.js",
-    "static/js/2.d2d68f9a.chunk.js.map": "/commit-status/static/js/2.d2d68f9a.chunk.js.map",
+    "static/js/2.8c3a82ca.chunk.js": "/commit-status/static/js/2.8c3a82ca.chunk.js",
+    "static/js/2.8c3a82ca.chunk.js.map": "/commit-status/static/js/2.8c3a82ca.chunk.js.map",
     "index.html": "/commit-status/index.html",
-    "precache-manifest.ebca44c8c501d3e61dd8006f3ea296ea.js": "/commit-status/precache-manifest.ebca44c8c501d3e61dd8006f3ea296ea.js",
+    "precache-manifest.3f0a7227a6097d68c842bb500383371c.js": "/commit-status/precache-manifest.3f0a7227a6097d68c842bb500383371c.js",
     "service-worker.js": "/commit-status/service-worker.js",
-    "static/css/main.57a16d07.chunk.css.map": "/commit-status/static/css/main.57a16d07.chunk.css.map"
+    "static/css/main.fd25f13d.chunk.css.map": "/commit-status/static/css/main.fd25f13d.chunk.css.map"
   }
 }
