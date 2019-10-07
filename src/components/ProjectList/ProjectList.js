@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProjectList.css';
+
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
 
 var axios = require('axios');
@@ -61,14 +62,28 @@ export default class ProjectList extends React.Component {
     });
   }
 
+  handleProjectClick(index){
+    this.setState({
+      projects: this.state.projects.map((project, pIndex) => {
+        if (pIndex !== index || (pIndex === index && project.isOpen)){
+          project.isOpen = false
+          return project
+        }
+        project.isOpen = true
+        return project
+      })
+    })
+  }
+
   render() {
     return (
       <div>
         {this.state.projectStatus}
-        {this.state.projects.map(function(project, index) {
+        {this.state.projects.map((project, index) => {
           return (
-            <div key={index} className={`project ${project.status}`}>
-              <span>Repository - </span>
+            <div key={index} className={`project ${project.status}`} 
+              onClick={() => this.handleProjectClick(index)}
+              >
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -77,7 +92,9 @@ export default class ProjectList extends React.Component {
                 {project.name}
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
-              <ProjectDetails name={project.name}/>
+              {
+                project.isOpen && <ProjectDetails name={project.name}/>
+              }
             </div>
           );
         })}
