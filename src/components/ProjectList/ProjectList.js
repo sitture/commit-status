@@ -110,7 +110,6 @@ export default class ProjectList extends React.Component {
   
 
   render = () => {
-   let handlePress = this.onRemoveClick;
    let addProject = this.addProject;
 
     return (
