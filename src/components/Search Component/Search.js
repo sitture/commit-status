@@ -1,5 +1,5 @@
 import React from 'react';
-import ListSearch from './ListSearch';
+
 import '../ProjectList/ProjectList.css';
 import './Search.css';
 
@@ -7,7 +7,6 @@ var axios = require('axios');
 
 export default class Search extends React.Component {
   state = {
-    project: null,
     input:""
   };
 
@@ -23,20 +22,27 @@ export default class Search extends React.Component {
         Authorization: process.env.REACT_APP_GITHUB_TOKEN,
       };
     }
-
+console.log(`https://api.github.com/repos/${this.state.input}/commits/master/status`)
     axios.get(
-      `https://api.github.com/repos/sitture/${this.state.input}/commits/master/status`,
+      `https://api.github.com/repos/${this.state.input}/commits/master/status`,
+
       params
     ).then(data=>{
+      let obj = {
+        name : data.data.repository.full_name,
+        status : data.data.state
+      }
+      this.props.addProject(obj)
      
-        this.setState({project:data.data,input:""})
     }).catch(console.log())
-  
+  this.setState({
+    input:""
+  })
 
   }
 handlePress=(e)=>{
   e.preventDefault();
-  this.setState({project:null})
+  this.setState({input:""})
 }
 
   render = () => {
@@ -49,18 +55,17 @@ handlePress=(e)=>{
           type="text"
           onChange={this.handleChange}
           value={this.state.input}
-          placeholder="Search for a repo..."
+          placeholder="Add a repo..."
         />
         <button className="button" type="submit">
-          Search
+          Add
         </button>
         {
-          this.state.project?<button onClick={this.handlePress}  className="button">
-          Remove Results
+          this.state.input?<button onClick={this.handlePress}  className="button">
+          X
         </button>:null
         }
       </form>
-      {this.state.project?<ListSearch addProject={(project)=>this.props.addProject(project)} project={this.state.project}/>:null}
       </div>
     );
   }

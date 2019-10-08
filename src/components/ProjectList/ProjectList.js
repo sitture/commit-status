@@ -34,7 +34,6 @@ export default class ProjectList extends React.Component {
       }
     
       let promiseArray = processedProjects.map(project =>{
-        console.log(`https://api.github.com/repos/${project.name}/commits/master/status`)
         return(
         axios.get(
           `https://api.github.com/repos/${project.name}/commits/master/status`,
