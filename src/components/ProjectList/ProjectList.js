@@ -1,5 +1,6 @@
 import React from 'react';
 import './ProjectList.css';
+import Search from '../Search Component/Search';
 
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
 
@@ -10,9 +11,9 @@ export default class ProjectList extends React.Component {
     projects: [],
   };
 
-  componentDidMount() {
-    var th = this;
-    var processedProjects = [];
+  componentDidMount =() => {
+    let th = this;
+    let processedProjects = [];
     this.serverRequest = axios.get(this.props.source).then(function(result) {
       var status = result.data.defaultStatus;
       result.data.projects.map(function(project) {
@@ -33,11 +34,15 @@ export default class ProjectList extends React.Component {
           Authorization: process.env.REACT_APP_GITHUB_TOKEN,
         };
       }
-      let promiseArray = processedProjects.map(project =>
+    
+      let promiseArray = processedProjects.map(project =>{
+        return(
         axios.get(
           `https://api.github.com/repos/${project.name}/commits/master/status`,
           params
         )
+        )
+      }
       );
       Promise.all(promiseArray)
         .then(
@@ -62,6 +67,32 @@ export default class ProjectList extends React.Component {
     });
   }
 
+
+  handlePress = (name) => {
+    
+    let filteredArray = this.state.projects.filter((project)=>project.name!==name)
+    
+    this.setState({
+      projects : filteredArray
+    })
+  }
+
+  addProject = (project) => {
+    let flag = 0;
+    this.state.projects.forEach(proj=>{
+      if(proj.name===project.name&&proj.status===project.status){
+        flag =1;
+    
+      }
+    })
+
+    if(!(flag===1)){
+    let newArray = [ ...this.state.projects, project ];
+   
+    this.setState({ projects : newArray })
+    }
+  }
+
   handleProjectClick(index){
     this.setState({
       projects: this.state.projects.map((project, pIndex) => {
@@ -75,9 +106,13 @@ export default class ProjectList extends React.Component {
     })
   }
 
-  render() {
+  render = () => {
+   let handlePress = this.handlePress;
+   let addProject = this.addProject;
+
     return (
       <div>
+        <Search addProject = {(project)=>addProject(project)}/>
         {this.state.projectStatus}
         {this.state.projects.map((project, index) => {
           return (
@@ -92,9 +127,15 @@ export default class ProjectList extends React.Component {
                 {project.name}
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
+
+              <button className="remove"  onClick={(index)=>handlePress(project.name)}>
+                Remove
+              </button>  
+
               {
                 project.isOpen && <ProjectDetails name={project.name}/>
               }
+
             </div>
           );
         })}
