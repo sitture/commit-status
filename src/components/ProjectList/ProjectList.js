@@ -2,6 +2,8 @@ import React from 'react';
 import './ProjectList.css';
 import Search from '../Search Component/Search';
 
+import ProjectDetails from '../ProjectDetails/ProjectDetails';
+
 var axios = require('axios');
 
 export default class ProjectList extends React.Component {
@@ -65,6 +67,7 @@ export default class ProjectList extends React.Component {
     });
   }
 
+
   handlePress = (name) => {
     
     let filteredArray = this.state.projects.filter((project)=>project.name!==name)
@@ -90,16 +93,32 @@ export default class ProjectList extends React.Component {
     }
   }
 
+  handleProjectClick(index){
+    this.setState({
+      projects: this.state.projects.map((project, pIndex) => {
+        if (pIndex !== index || (pIndex === index && project.isOpen)){
+          project.isOpen = false
+          return project
+        }
+        project.isOpen = true
+        return project
+      })
+    })
+  }
+
   render = () => {
    let handlePress = this.handlePress;
    let addProject = this.addProject;
+
     return (
       <div>
         <Search addProject = {(project)=>addProject(project)}/>
         {this.state.projectStatus}
-        {this.state.projects.map(function(project, index) {
+        {this.state.projects.map((project, index) => {
           return (
-            <div key={index} className={`project ${project.status}`}>
+            <div key={index} className={`project ${project.status}`} 
+              onClick={() => this.handleProjectClick(index)}
+              >
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -108,9 +127,15 @@ export default class ProjectList extends React.Component {
                 {project.name}
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
+
               <button className="remove"  onClick={(index)=>handlePress(project.name)}>
                 Remove
               </button>  
+
+              {
+                project.isOpen && <ProjectDetails name={project.name}/>
+              }
+
             </div>
           );
         })}
