@@ -68,13 +68,15 @@ export default class ProjectList extends React.Component {
   }
 
 
-  handlePress = (name) => {
-    
-    let filteredArray = this.state.projects.filter((project)=>project.name!==name)
-    
-    this.setState({
-      projects : filteredArray
-    })
+  handlePress = (name, event) => {
+      event.stopPropagation();
+
+      let filteredArray = this.state.projects.filter((project) => project.name !== name)
+
+      this.setState({
+        projects: filteredArray
+      })
+      return event;
   }
 
   addProject = (project) => {
@@ -128,9 +130,9 @@ export default class ProjectList extends React.Component {
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
 
-              <button className="remove"  onClick={(index)=>handlePress(project.name)}>
+             <button className="remove"  onClick={(e) => this.handlePress(project.name, e)}>
                 Remove
-              </button>  
+              </button>
 
               {
                 project.isOpen && <ProjectDetails name={project.name}/>
