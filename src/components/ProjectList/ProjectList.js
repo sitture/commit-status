@@ -76,7 +76,6 @@ export default class ProjectList extends React.Component {
       this.setState({
         projects: filteredArray
       })
-      return event;
   }
 
   addProject = (project) => {
