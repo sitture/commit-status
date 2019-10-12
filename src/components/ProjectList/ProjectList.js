@@ -74,17 +74,19 @@ export default class ProjectList extends React.Component {
     return a.status > b.status ? -1 : 1;
   };
 
-  handlePress = (name) => {
-    let filteredArray = this.state.projects.filter(
-      (project) => project.name !== name,
-    );
+  onRemoveClick(name) {
+    return (event) => {
+      event.stopPropagation();
 
-    this.removeProjectFromLocalStorage(name);
-
-    this.setState({
-      projects: filteredArray,
-    });
-  };
+      let filteredArray = this.state.projects.filter((project)=>project.name!==name)
+    
+      this.removeProjectFromLocalStorage(name);
+      
+      this.setState({
+        projects : filteredArray
+      })
+    }
+  }
 
   addProject = (project) => {
     let flag = 0;
@@ -143,10 +145,10 @@ export default class ProjectList extends React.Component {
       }),
     });
   }
+  
 
   render = () => {
-    let handlePress = this.handlePress;
-    let addProject = this.addProject;
+   let addProject = this.addProject;
 
     return (
       <div>
@@ -167,10 +169,8 @@ export default class ProjectList extends React.Component {
                 {project.name}
               </a>{' '}
               - <span className={project.status}>{project.status}</span>
-              <button
-                className="remove"
-                onClick={(index) => handlePress(project.name)}
-              >
+
+              <button className="remove"  onClick={this.onRemoveClick(project.name)}>
                 Remove
               </button>
               {project.isOpen && <ProjectDetails name={project.name} />}
