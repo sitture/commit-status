@@ -20,7 +20,7 @@ export default class App extends Component {
           title="CommitStatus"
         />
         <Header />
-        <ProjectList source="./data/repositories.json" />
+        <ProjectList/>
       </div>
     );
   }
