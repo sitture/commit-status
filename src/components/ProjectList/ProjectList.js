@@ -133,17 +133,19 @@ export default class ProjectList extends React.Component {
     );
   };
 
-  handleProjectClick(index) {
-    this.setState({
-      projects: this.state.projects.map((project, pIndex) => {
-        if (pIndex !== index || (pIndex === index && project.isOpen)) {
-          project.isOpen = false;
+  handleProjectClick(e, index) {
+    if (e.target == e.currentTarget) {
+      this.setState({
+        projects: this.state.projects.map((project, pIndex) => {
+          if (pIndex !== index || (pIndex === index && project.isOpen)) {
+            project.isOpen = false;
+            return project;
+          }
+          project.isOpen = true;
           return project;
-        }
-        project.isOpen = true;
-        return project;
-      }),
-    });
+        }),
+      });
+    }
   }
   
 
@@ -159,7 +161,7 @@ export default class ProjectList extends React.Component {
             <div
               key={index}
               className={`project ${project.status}`}
-              onClick={() => this.handleProjectClick(index)}
+              onClick={(e) => this.handleProjectClick(e, index)}
             >
               <a
                 target="_blank"
