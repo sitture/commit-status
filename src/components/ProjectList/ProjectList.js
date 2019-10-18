@@ -134,7 +134,7 @@ export default class ProjectList extends React.Component {
   };
 
   handleProjectClick(e, index) {
-    if (e.target == e.currentTarget) {
+    if (e.target === e.currentTarget) {
       this.setState({
         projects: this.state.projects.map((project, pIndex) => {
           if (pIndex !== index || (pIndex === index && project.isOpen)) {
