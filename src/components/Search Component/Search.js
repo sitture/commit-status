@@ -55,7 +55,7 @@ handlePress=(e)=>{
           type="text"
           onChange={this.handleChange}
           value={this.state.input}
-          placeholder="Add a repo..."
+          placeholder="sitture/commit-status"
         />
         <button className="button" type="submit">
           Add
