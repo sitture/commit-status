@@ -1,6 +1,7 @@
 import React from 'react';
 import './ProjectList.css';
 import Search from '../Search Component/Search';
+import Filter from '../Filter/Filter';
 
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
 
@@ -153,6 +154,7 @@ export default class ProjectList extends React.Component {
     return (
       <div>
         <Search addProject={(project) => addProject(project)} />
+        <Filter />
         {this.state.projectStatus}
         {this.state.projects.map((project, index) => {
           return (
