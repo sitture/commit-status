@@ -79,9 +79,9 @@ export default class ProjectList extends React.Component {
       event.stopPropagation();
 
       let filteredArray = this.state.projects.filter((project)=>project.name!==name)
-    
+
       this.removeProjectFromLocalStorage(name);
-      
+
       this.setState({
         projects : filteredArray
       })
@@ -145,7 +145,11 @@ export default class ProjectList extends React.Component {
       }),
     });
   }
-  
+
+  clickWithNoPropagation(e) {
+    e.nativeEvent.stopImmediatePropagation();
+    e.stopPropagation();
+  }
 
   render = () => {
    let addProject = this.addProject;
@@ -163,6 +167,7 @@ export default class ProjectList extends React.Component {
             >
               <a
                 target="_blank"
+                onClick={(e) => this.clickWithNoPropagation(e)}
                 rel="noopener noreferrer"
                 href={`https://github.com/${project.name}`}
               >
