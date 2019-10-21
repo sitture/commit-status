@@ -4,6 +4,11 @@ import '../ProjectList/ProjectList.css';
 import './Search.css';
 
 var axios = require('axios');
+var errorMessages = {
+  unauthorized_entry : "You do not have access to this private repo. Please try to add other projects",
+  not_found : "The repo that you are looking is invalid",
+  default_error : "Problem with Commit Status. Please try again later"
+};
 
 export default class Search extends React.Component {
   state = {
@@ -12,6 +17,10 @@ export default class Search extends React.Component {
 
   handleChange = (e) => {
     this.setState({input:e.target.value})
+  }
+
+  alertUser = (message) => { 
+    alert(message);
   }
   
   handleSubmit = (e) => {
@@ -34,7 +43,15 @@ console.log(`https://api.github.com/repos/${this.state.input}/commits/master/sta
       }
       this.props.addProject(obj)
      
-    }).catch(console.log())
+    }).catch(er => {
+      if(er.response.status === 403) {
+        return this.alertUser(errorMessages['unauthorized_entry']);
+      }
+      else if(er.response.status === 404) {
+        return this.alertUser(errorMessages['not_found']);
+      }
+      return this.alertUser(errorMessages['default_error'])
+    })
   this.setState({
     input:""
   })
