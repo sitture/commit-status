@@ -5,7 +5,7 @@ import './Search.css';
 
 var axios = require('axios');
 var errorMessages = {
-  unauthorized_entry : "You do not have access to this private repo. Please try to add other projects",
+  unauthorized_entry : "You do not have access",
   not_found : "The repo that you are looking is invalid",
   default_error : "Problem with Commit Status. Please try again later"
 };
@@ -20,7 +20,17 @@ export default class Search extends React.Component {
   }
 
   alertUser = (message) => { 
-    alert(message);
+    const errorElement = document.createElement('div'),
+          closeBtn = document.createElement('span'),
+          errorMessage = document.createTextNode(message);
+    errorElement.classList.add('error-message');
+    errorElement.appendChild(errorMessage);
+    closeBtn.classList.add('close');
+    closeBtn.innerText = 'X';
+    closeBtn.addEventListener('click', this.handleClose);
+    errorElement.appendChild(closeBtn);
+    document.querySelector('.search')
+            .appendChild(errorElement).focus();
   }
   
   handleSubmit = (e) => {
@@ -60,6 +70,12 @@ console.log(`https://api.github.com/repos/${this.state.input}/commits/master/sta
 handlePress=(e)=>{
   e.preventDefault();
   this.setState({input:""})
+}
+
+handleClose=(e)=>{
+  e.preventDefault();
+  document.querySelector('.search')
+          .removeChild(e.target.parentElement);
 }
 
   render = () => {
