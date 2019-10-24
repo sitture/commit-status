@@ -147,38 +147,17 @@ export default class ProjectList extends React.Component {
     });
   }
   
-
   render = () => {
    let addProject = this.addProject;
 
     return (
       <div>
         <Search addProject={(project) => addProject(project)} />
-        <Filter />
-        {this.state.projectStatus}
-        {this.state.projects.map((project, index) => {
-          return (
-            <div
-              key={index}
-              className={`project ${project.status}`}
-              onClick={() => this.handleProjectClick(index)}
-            >
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`https://github.com/${project.name}`}
-              >
-                {project.name}
-              </a>{' '}
-              - <span className={project.status}>{project.status}</span>
-
-              <button className="remove"  onClick={this.onRemoveClick(project.name)}>
-                Remove
-              </button>
-              {project.isOpen && <ProjectDetails name={project.name} />}
-            </div>
-          );
-        })}
+        <Filter 
+          projects={this.state.projects} 
+          handleProjectClick={this.handleProjectClick.bind(this)}
+          onRemoveClick={this.onRemoveClick.bind(this)}
+        />
       </div>
     );
   };
