@@ -3,8 +3,6 @@ import './ProjectList.css';
 import Search from '../Search Component/Search';
 import Filter from '../Filter/Filter';
 
-import ProjectDetails from '../ProjectDetails/ProjectDetails';
-
 var axios = require('axios');
 
 export default class ProjectList extends React.Component {
@@ -80,9 +78,9 @@ export default class ProjectList extends React.Component {
       event.stopPropagation();
 
       let filteredArray = this.state.projects.filter((project)=>project.name!==name)
-    
+
       this.removeProjectFromLocalStorage(name);
-      
+
       this.setState({
         projects : filteredArray
       })
@@ -134,19 +132,26 @@ export default class ProjectList extends React.Component {
     );
   };
 
-  handleProjectClick(index) {
-    this.setState({
-      projects: this.state.projects.map((project, pIndex) => {
-        if (pIndex !== index || (pIndex === index && project.isOpen)) {
-          project.isOpen = false;
+  handleProjectClick(e, index) {
+    if (e.target === e.currentTarget) {
+      this.setState({
+        projects: this.state.projects.map((project, pIndex) => {
+          if (pIndex !== index || (pIndex === index && project.isOpen)) {
+            project.isOpen = false;
+            return project;
+          }
+          project.isOpen = true;
           return project;
-        }
-        project.isOpen = true;
-        return project;
-      }),
-    });
+        }),
+      });
+    }
   }
-  
+
+  clickWithNoPropagation(e) {
+    e.nativeEvent.stopImmediatePropagation();
+    e.stopPropagation();
+  }
+
   render = () => {
    let addProject = this.addProject;
 
