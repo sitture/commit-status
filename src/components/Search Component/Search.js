@@ -4,6 +4,9 @@ import '../ProjectList/ProjectList.css';
 import './Search.css';
 
 var axios = require('axios');
+/**
+ * Use this to add new error messages
+ */
 var errorMessages = {
   unauthorized_entry : "You do not have access",
   not_found : "The repo that you are looking is invalid",
@@ -20,6 +23,10 @@ export default class Search extends React.Component {
   }
 
   alertUser = (message) => { 
+    /**
+     * I couldnt think of any other logic than to use 
+     * vanilla js. TODO : Pull in jquery and maybe use that
+     */
     const errorElement = document.createElement('div'),
           closeBtn = document.createElement('span'),
           errorMessage = document.createTextNode(message);
