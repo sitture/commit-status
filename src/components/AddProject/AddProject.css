@@ -1,0 +1,66 @@
+.add-bar-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: 90vw;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.add-bar {
+	background-color: #efefef;
+	font-size: 24px;
+	font-family: 'Cairo', sans-serif;
+	color: #3d3d3d;
+	text-align: left;
+	outline: none;
+	border: 0px;
+	border-radius: 5px;
+	padding: 10px 20px;
+	width: 100%;
+}
+
+.add-bar:focus {
+	background-image: none;
+}
+
+.add-bar::placeholder {
+	color: #b5b5b5;
+}
+
+.add-bar + .add-icon {
+	height: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	vertical-align: middle;
+	pointer-events: none;
+    background-color: transparent;
+	transition: opacity 0.3s;
+}
+
+.add-bar:focus + .add-icon,
+.add-bar:not(:empty) + .add-icon {
+	opacity: 110;
+}
+
+.error-message{
+    background: tomato;
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 1%;
+    padding: 0px;
+    color: #fff;
+    border-radius: 10px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+.close {
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-left:5%
+}

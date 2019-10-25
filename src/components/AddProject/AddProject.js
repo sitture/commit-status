@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../ProjectList/ProjectList.css';
-import './Search.css';
+import './AddProject.css';
 
 var axios = require('axios');
 /**
@@ -13,7 +13,7 @@ var errorMessages = {
   default_error : "Problem with Commit Status. Please try again later"
 };
 
-export default class Search extends React.Component {
+export default class AddProject extends React.Component {
   state = {
     input:""
   };
@@ -36,7 +36,7 @@ export default class Search extends React.Component {
     closeBtn.innerText = 'X';
     closeBtn.addEventListener('click', this.handleClose);
     errorElement.appendChild(closeBtn);
-    document.querySelector('.search')
+    document.querySelector('.add-container')
             .appendChild(errorElement).focus();
   }
   
@@ -48,10 +48,8 @@ export default class Search extends React.Component {
         Authorization: process.env.REACT_APP_GITHUB_TOKEN,
       };
     }
-console.log(`https://api.github.com/repos/${this.state.input}/commits/master/status`)
     axios.get(
       `https://api.github.com/repos/${this.state.input}/commits/master/status`,
-
       params
     ).then(data=>{
       let obj = {
@@ -81,31 +79,32 @@ handlePress=(e)=>{
 
 handleClose=(e)=>{
   e.preventDefault();
-  document.querySelector('.search')
+  document.querySelector('.add-container')
           .removeChild(e.target.parentElement);
 }
 
   render = () => {
   
     return (
-      <div className="search project">
-         <form onSubmit={this.handleSubmit}>
-        <input
-          className="input"
-          type="text"
-          onChange={this.handleChange}
-          value={this.state.input}
-          placeholder="sitture/commit-status"
-        />
-        <button className="button" type="submit">
-          Add
-        </button>
-        {
-          this.state.input?<button onClick={this.handlePress}  className="button">
-          X
-        </button>:null
-        }
-      </form>
+      
+      <div className="add-container">
+        <div className="add-bar-container">
+          <form className="add-bar-container" onSubmit={this.handleSubmit}>
+            <input
+              className="add-bar"
+              type="text"
+              value={this.state.input}
+              spellCheck="false"
+              onChange={this.handleChange}
+              placeholder="sitture/commit-status"
+            />
+            <img
+              className="add-icon"
+              alt=""
+              src="/plus.svg"
+            />
+          </form>
+        </div>
       </div>
     );
   }
