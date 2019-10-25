@@ -101,7 +101,7 @@ handleClose=(e)=>{
             <img
               className="add-icon"
               alt=""
-              src="/plus.svg"
+              src="/commit-status/plus.svg"
             />
           </form>
         </div>
