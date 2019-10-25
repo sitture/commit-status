@@ -1,6 +1,7 @@
 .search{
     margin-bottom: 10px;
-    height: 100px;
+    height: 150px;
+    overflow: scroll;
 }
 .search .input{
     padding: 5px;
@@ -11,4 +12,21 @@
     padding: 5px;
     font-size: 1rem;
     margin-left : 10px;
+}
+.error-message{
+    background: tomato;
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 1%;
+    padding: 0px;
+    color: #fff;
+    border-radius: 10px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+.close {
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-left:5%
 }
