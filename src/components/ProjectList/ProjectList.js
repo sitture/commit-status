@@ -1,6 +1,6 @@
 import React from 'react';
 import './ProjectList.css';
-import Search from '../Search Component/Search';
+import AddProject from '../AddProject/AddProject';
 import Filter from '../Filter/Filter';
 
 var axios = require('axios');
@@ -157,7 +157,7 @@ export default class ProjectList extends React.Component {
 
     return (
       <div>
-        <Search addProject={(project) => addProject(project)} />
+        <AddProject addProject={(project) => addProject(project)} />
         <Filter 
           projects={this.state.projects} 
           handleProjectClick={this.handleProjectClick.bind(this)}
