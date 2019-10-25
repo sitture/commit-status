@@ -1,3 +1,19 @@
+.ProjectDetails {
+  position: relative;
+}
+
+.ProjectDetails .autoRefreshButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  outline: none;
+  border: none;
+  background-color: #0D65CA;
+  padding: 5px;
+}
+
+
 table {
     font-family: arial, sans-serif;
     font-size: 0.8rem;
