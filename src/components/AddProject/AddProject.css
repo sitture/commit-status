@@ -32,7 +32,7 @@
 .add-bar + .add-icon {
 	height: 100%;
 	box-sizing: border-box;
-	padding: 10px;
+	padding: 20px;
 	position: absolute;
 	top: 0;
 	right: 0;
