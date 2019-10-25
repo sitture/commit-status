@@ -20,3 +20,8 @@
     transform: rotate(360deg);
   }
 }
+
+.NoMatch-go-back {
+  color: #61dafb;
+  text-decoration: none;
+}
