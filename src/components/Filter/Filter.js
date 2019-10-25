@@ -47,12 +47,14 @@ export default class Filter extends Component {
                     </TabList>
 
                     <TabPanel>
-                        {projects.projectStatus}
-                        {this.printProjectList(projects)}
+                        {projects.length > 0 ? this.printProjectList(projects) : "No projects are being monitored."}
                     </TabPanel>
                     <TabPanel>
-                        {projects.projectStatus}
-                        {this.printProjectList(unhealthyList)}
+                        {(() => {
+                            if (projects.length === 0) return "No projects are being monitored."
+                            if (unhealthyList.length === 0) return "All projects are green."
+                            return this.printProjectList(unhealthyList)
+                        })()}
                     </TabPanel>
                 </Tabs>
             </div>
