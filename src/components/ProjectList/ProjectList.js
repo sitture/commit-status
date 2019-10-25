@@ -22,11 +22,11 @@ export default class ProjectList extends React.Component {
 
     const sortedProjects = projects
       .map((project) => {
-        return {name: project, status: this.DEFAULT_STATUS};
+        return { name: project, status: this.DEFAULT_STATUS };
       })
       .sort(this.sortProjects);
 
-    this.setState({projects: sortedProjects}, this.loadProjectStatuses);
+    this.setState({ projects: sortedProjects }, this.loadProjectStatuses);
   };
 
   loadProjectStatuses = () => {
@@ -48,7 +48,7 @@ export default class ProjectList extends React.Component {
       .then(
         (results) => {
           const sortedProjects = results
-            .map(function(project) {
+            .map(function (project) {
               return {
                 name: project.data.repository.full_name,
                 status: project.data.state,
@@ -77,12 +77,12 @@ export default class ProjectList extends React.Component {
     return (event) => {
       event.stopPropagation();
 
-      let filteredArray = this.state.projects.filter((project)=>project.name!==name)
+      let filteredArray = this.state.projects.filter((project) => project.name !== name)
 
       this.removeProjectFromLocalStorage(name);
 
       this.setState({
-        projects : filteredArray
+        projects: filteredArray
       })
     }
   }
@@ -99,7 +99,7 @@ export default class ProjectList extends React.Component {
       let newArray = [...this.state.projects, project].sort(this.sortProjects);
       this.addProjectToLocalStorage(project.name);
 
-      this.setState({projects: newArray});
+      this.setState({ projects: newArray });
     }
   };
 
@@ -132,19 +132,16 @@ export default class ProjectList extends React.Component {
     );
   };
 
-  handleProjectClick(e, index) {
-    if (e.target === e.currentTarget) {
-      this.setState({
-        projects: this.state.projects.map((project, pIndex) => {
-          if (pIndex !== index || (pIndex === index && project.isOpen)) {
-            project.isOpen = false;
-            return project;
-          }
-          project.isOpen = true;
-          return project;
-        }),
-      });
-    }
+  handleProjectClick(index) {
+    this.setState({
+      projects: this.state.projects.map((project, pIndex) => {
+        if (pIndex === index) return {
+          ...project,
+          isOpen: !project.isOpen,
+        }
+        return project;
+      }),
+    });
   }
 
   clickWithNoPropagation(e) {
@@ -153,13 +150,13 @@ export default class ProjectList extends React.Component {
   }
 
   render = () => {
-   let addProject = this.addProject;
+    let addProject = this.addProject;
 
     return (
       <div>
         <AddProject addProject={(project) => addProject(project)} />
-        <Filter 
-          projects={this.state.projects} 
+        <Filter
+          projects={this.state.projects}
           handleProjectClick={this.handleProjectClick.bind(this)}
           onRemoveClick={this.onRemoveClick.bind(this)}
         />
