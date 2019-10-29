@@ -22,7 +22,7 @@ export default class App extends Component {
           />
         </HelmetProvider>
         <Header />
-        <ProjectList/>
+        <ProjectList />
       </div>
     );
   }
