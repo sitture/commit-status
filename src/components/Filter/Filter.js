@@ -27,7 +27,12 @@ export default class Filter extends Component {
           >
             Remove
           </button>
-          {project.isOpen && <ProjectDetails name={project.name} />}
+          {project.isOpen && (
+            <ProjectDetails
+              name={project.name}
+              refreshEnabeledGlobally={this.props.refreshEnabeledGlobally}
+            />
+          )}
         </div>
       );
     });

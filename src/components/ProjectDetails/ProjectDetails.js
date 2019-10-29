@@ -18,32 +18,62 @@ export default class ProjectDetails extends Component {
   componentDidMount = () => {
     axios
       .get(`https://api.github.com/repos/${this.props.name}/commits`, params)
-      .then(data => this.setState({ commitDetails: data.data }));
+      .then(data => {
+        this.setState({ commitDetails: data.data });
+      });
+  };
+
+  componentDidUpdate = () => {
+    if (
+      this.props.refreshEnabeledGlobally &&
+      this.state.shouldRefresh &&
+      !this.interval
+    ) {
+      // Refresh is allowed globally, this component should refresh, but is not refreshing
+      this.startLocalAutoRefresh();
+    } else if (!this.props.refreshEnabeledGlobally && this.interval) {
+      // Refresh is NOT allowed globally, but this project is refreshing
+      this.stopLocalAutoRefresh();
+    }
   };
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    this.stopLocalAutoRefresh();
   }
+
+  interval = null;
+
+  stopLocalAutoRefresh = () => {
+    clearInterval(this.interval);
+    this.interval = null;
+  };
+
+  startLocalAutoRefresh = () => {
+    this.interval = setInterval(() => {
+      axios
+        .get(`https://api.github.com/repos/${this.props.name}/commits`, params)
+        .then(data => this.setState({ commitDetails: data.data }));
+    }, 30000); // Refresh every 30 seconds
+  };
 
   toggleAutoRefresh(e) {
     e.stopPropagation(); // Prevent the click event from being fired on the parent elements as well
+    if (!this.props.refreshEnabeledGlobally) {
+      // Should not be able to change state if refresh is disabeled globally
+      return;
+    }
 
     this.setState(
-      {
-        shouldRefresh: !this.state.shouldRefresh,
+      prevState => {
+        return {
+          shouldRefresh: !prevState.shouldRefresh,
+        };
       },
       () => {
-        clearInterval(this.interval);
+        this.stopLocalAutoRefresh();
 
-        if (this.state.shouldRefresh) {
-          this.interval = setInterval(() => {
-            axios
-              .get(
-                `https://api.github.com/repos/${this.props.name}/commits`,
-                params
-              )
-              .then(data => this.setState({ commitDetails: data.data }));
-          }, 30000); // Refresh every 30 seconds
+        if (this.state.shouldRefresh && this.props.refreshEnabeledGlobally) {
+          this.startLocalAutoRefresh();
         }
       }
     );
@@ -57,13 +87,19 @@ export default class ProjectDetails extends Component {
         </div>
       );
     }
+    let toggleMessage = 'Toggle Auto Refresh OFF';
+    if (!this.props.refreshEnabeledGlobally) {
+      toggleMessage = 'Refresh Disabeled Globally';
+    } else if (!this.state.shouldRefresh) {
+      toggleMessage = 'Toggle Auto Refresh ON';
+    }
     return (
       <div className="ProjectDetails">
         <button
           onClick={e => this.toggleAutoRefresh(e)}
           className="autoRefreshButton"
         >
-          Toggle Auto Refresh {this.state.shouldRefresh ? 'OFF' : 'ON'}
+          {toggleMessage}
         </button>
         Commit Details
         <table>

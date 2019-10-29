@@ -11,22 +11,36 @@ export default class ProjectList extends React.Component {
 
   state = {
     projects: [],
-    authoRefreshIntervalId: null,
   };
+
+  authoRefreshIntervalId = null;
 
   componentDidMount = () => {
     this.loadProjects();
-    this.autoRefreshProjectStatuses();
+    if (this.props.refreshEnabeledGlobally) {
+      this.autoRefreshProjectStatuses();
+    }
   };
 
   componentWillUnmount = () => {
-    clearInterval(this.state.authoRefreshIntervalId);
+    this.stopProjectsAutoRefresh();
   };
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {
-    if (prevState.projects.length !== this.state.projects.length) {
+    if (
+      this.props.refreshEnabeledGlobally &&
+      (!this.authoRefreshIntervalId ||
+        prevState.projects.length !== this.state.projects.length)
+    ) {
       this.autoRefreshProjectStatuses();
+    } else if (!this.props.refreshEnabeledGlobally) {
+      this.stopProjectsAutoRefresh();
     }
+  };
+
+  stopProjectsAutoRefresh = () => {
+    clearInterval(this.authoRefreshIntervalId);
+    this.authoRefreshIntervalId = null;
   };
 
   loadProjects = () => {
@@ -80,17 +94,16 @@ export default class ProjectList extends React.Component {
   };
 
   autoRefreshProjectStatuses = () => {
-    if (this.state.projects.length && !this.state.authoRefreshIntervalId) {
+    if (this.state.projects.length && !this.authoRefreshIntervalId) {
       const authoRefreshIntervalId = setInterval(() => {
         this.loadProjectStatuses();
       }, 20000);
-      this.setState({ authoRefreshIntervalId });
+      this.authoRefreshIntervalId = authoRefreshIntervalId;
     } else if (
       !this.state.projects.length &&
-      this.state.authoRefreshIntervalId
+      this.authoRefreshIntervalId
     ) {
-      clearInterval(this.state.authoRefreshIntervalId);
-      this.setState({ authoRefreshIntervalId: null });
+      this.stopProjectsAutoRefresh();
     }
   };
 
@@ -189,6 +202,7 @@ export default class ProjectList extends React.Component {
           projects={this.state.projects}
           handleProjectClick={this.handleProjectClick.bind(this)}
           onRemoveClick={this.onRemoveClick.bind(this)}
+          refreshEnabeledGlobally={this.props.refreshEnabeledGlobally}
         />
       </div>
     );
