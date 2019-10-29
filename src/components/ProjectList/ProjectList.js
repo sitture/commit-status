@@ -11,11 +11,23 @@ export default class ProjectList extends React.Component {
 
   state = {
     projects: [],
+    authoRefreshIntervalId: null
   };
 
   componentDidMount = () => {
     this.loadProjects();
+    this.autoRefreshProjectStatuses();
   };
+
+  componentWillUnmount = () => {
+    clearInterval(this.state.authoRefreshIntervalId);
+  }
+
+  componentDidUpdate = (prevProps, prevState, snapshot) => {
+    if(prevState.projects.length !== this.state.projects.length) {
+      this.autoRefreshProjectStatuses();
+    }
+  }
 
   loadProjects = () => {
     const projects = this.getProjectsFromLocalStorage();
@@ -66,6 +78,18 @@ export default class ProjectList extends React.Component {
       )
       .catch(console.log());
   };
+
+  autoRefreshProjectStatuses = () => {
+    if(this.state.projects.length && !this.state.authoRefreshIntervalId) {
+      const authoRefreshIntervalId = setInterval(() => {
+        this.loadProjectStatuses();
+      }, 20000)
+      this.setState({authoRefreshIntervalId})
+    } else if(!this.state.projects.length && this.state.authoRefreshIntervalId) {
+      clearInterval(this.state.authoRefreshIntervalId);
+      this.setState({authoRefreshIntervalId: null})
+    }
+  }
 
   sortProjects = (a, b) => {
     if (a.name < b.name) return -1;
