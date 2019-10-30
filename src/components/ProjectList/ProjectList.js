@@ -1,109 +1,114 @@
-import React from 'react';
-import './ProjectList.css';
-import AddProject from '../AddProject/AddProject';
-import Filter from '../Filter/Filter';
+import React from 'react'
+import './ProjectList.css'
+import AddProject from '../AddProject/AddProject'
+import Filter from '../Filter/Filter'
 
-var axios = require('axios');
+var axios = require('axios')
 
 export default class ProjectList extends React.Component {
-  DEFAULT_STATUS = 'pending';
-  LS_PROJECTS_KEY = 'projects';
+  DEFAULT_STATUS = 'pending'
+  LS_PROJECTS_KEY = 'projects'
 
   state = {
     projects: [],
     authoRefreshIntervalId: null
-  };
+  }
 
   componentDidMount = () => {
-    this.loadProjects();
-    this.autoRefreshProjectStatuses();
-  };
+    this.loadProjects()
+    this.autoRefreshProjectStatuses()
+  }
 
   componentWillUnmount = () => {
-    clearInterval(this.state.authoRefreshIntervalId);
+    clearInterval(this.state.authoRefreshIntervalId)
   }
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {
-    if(prevState.projects.length !== this.state.projects.length) {
-      this.autoRefreshProjectStatuses();
+    if (prevState.projects.length !== this.state.projects.length) {
+      this.autoRefreshProjectStatuses()
     }
   }
 
   loadProjects = () => {
-    const projects = this.getProjectsFromLocalStorage();
+    const projects = this.getProjectsFromLocalStorage()
 
     const sortedProjects = projects
-      .map((project) => {
-        return { name: project, status: this.DEFAULT_STATUS };
+      .map(project => {
+        return { name: project, status: this.DEFAULT_STATUS }
       })
-      .sort(this.sortProjects);
+      .sort(this.sortProjects)
 
-    this.setState({ projects: sortedProjects }, this.loadProjectStatuses);
-  };
+    this.setState({ projects: sortedProjects }, this.loadProjectStatuses)
+  }
 
   loadProjectStatuses = () => {
-    const params = {};
+    const params = {}
 
     if (process.env.REACT_APP_GITHUB_TOKEN) {
       params.headers = {
-        Authorization: process.env.REACT_APP_GITHUB_TOKEN,
-      };
+        Authorization: process.env.REACT_APP_GITHUB_TOKEN
+      }
     }
 
-    let promiseArray = this.state.projects.map((project) => {
+    let promiseArray = this.state.projects.map(project => {
       return axios.get(
         `https://api.github.com/repos/${project.name}/commits/master/status`,
-        params,
-      );
-    });
+        params
+      )
+    })
     Promise.all(promiseArray)
       .then(
-        (results) => {
+        results => {
           const sortedProjects = results
-            .map(function (project) {
+            .map(function(project) {
               return {
                 name: project.data.repository.full_name,
-                status: project.data.state,
-              };
+                status: project.data.state
+              }
             })
-            .sort(this.sortProjects);
+            .sort(this.sortProjects)
 
           this.setState({
-            projects: sortedProjects,
-          });
+            projects: sortedProjects
+          })
         },
-        (reason) => {
-          console.log('error', reason);
-        },
+        reason => {
+          console.log('error', reason)
+        }
       )
-      .catch(console.log());
-  };
+      .catch(console.log())
+  }
 
-  autoRefreshProjectStatuses = () => {
-    if(this.state.projects.length && !this.state.authoRefreshIntervalId) {
+  autoRefreshProjectStatuses = (interval = 20000) => {
+    if (this.state.projects.length && !this.state.authoRefreshIntervalId) {
       const authoRefreshIntervalId = setInterval(() => {
-        this.loadProjectStatuses();
-      }, 20000)
-      this.setState({authoRefreshIntervalId})
-    } else if(!this.state.projects.length && this.state.authoRefreshIntervalId) {
-      clearInterval(this.state.authoRefreshIntervalId);
-      this.setState({authoRefreshIntervalId: null})
+        this.loadProjectStatuses()
+      }, interval)
+      this.setState({ authoRefreshIntervalId })
+    } else if (
+      !this.state.projects.length &&
+      this.state.authoRefreshIntervalId
+    ) {
+      clearInterval(this.state.authoRefreshIntervalId)
+      this.setState({ authoRefreshIntervalId: null })
     }
   }
 
   sortProjects = (a, b) => {
-    if (a.name < b.name) return -1;
-    else if (a.name > b.name) return 1;
-    return a.status > b.status ? -1 : 1;
-  };
+    if (a.name < b.name) return -1
+    else if (a.name > b.name) return 1
+    return a.status > b.status ? -1 : 1
+  }
 
   onRemoveClick(name) {
-    return (event) => {
-      event.stopPropagation();
+    return event => {
+      event.stopPropagation()
 
-      let filteredArray = this.state.projects.filter((project) => project.name !== name)
+      let filteredArray = this.state.projects.filter(
+        project => project.name !== name
+      )
 
-      this.removeProjectFromLocalStorage(name);
+      this.removeProjectFromLocalStorage(name)
 
       this.setState({
         projects: filteredArray
@@ -111,80 +116,112 @@ export default class ProjectList extends React.Component {
     }
   }
 
-  addProject = (project) => {
-    let flag = 0;
-    this.state.projects.forEach((proj) => {
+  addProject = project => {
+    let flag = 0
+    this.state.projects.forEach(proj => {
       if (proj.name === project.name && proj.status === project.status) {
-        flag = 1;
+        flag = 1
       }
-    });
+    })
 
     if (!(flag === 1)) {
-      let newArray = [...this.state.projects, project].sort(this.sortProjects);
-      this.addProjectToLocalStorage(project.name);
+      let newArray = [...this.state.projects, project].sort(this.sortProjects)
+      this.addProjectToLocalStorage(project.name)
 
-      this.setState({ projects: newArray });
+      this.setState({ projects: newArray })
     }
-  };
-
-  getProjectsFromLocalStorage() {
-    const projects = localStorage.getItem(this.LS_PROJECTS_KEY);
-
-    if (!projects) {
-      return [];
-    }
-
-    return JSON.parse(projects);
   }
 
-  addProjectToLocalStorage = (projectName) => {
-    const projects = this.getProjectsFromLocalStorage();
-    projects.push(projectName);
+  getProjectsFromLocalStorage() {
+    const projects = localStorage.getItem(this.LS_PROJECTS_KEY)
 
-    localStorage.setItem(this.LS_PROJECTS_KEY, JSON.stringify(projects));
-  };
+    if (!projects) {
+      return []
+    }
 
-  removeProjectFromLocalStorage = (projectName) => {
-    const projects = this.getProjectsFromLocalStorage();
+    return JSON.parse(projects)
+  }
+
+  addProjectToLocalStorage = projectName => {
+    const projects = this.getProjectsFromLocalStorage()
+    projects.push(projectName)
+
+    localStorage.setItem(this.LS_PROJECTS_KEY, JSON.stringify(projects))
+  }
+
+  removeProjectFromLocalStorage = projectName => {
+    const projects = this.getProjectsFromLocalStorage()
     const updatedProjectsList = projects.filter(
-      (project) => project !== projectName,
-    );
+      project => project !== projectName
+    )
 
     localStorage.setItem(
       this.LS_PROJECTS_KEY,
-      JSON.stringify(updatedProjectsList),
-    );
-  };
+      JSON.stringify(updatedProjectsList)
+    )
+  }
 
   handleProjectClick(index) {
     this.setState({
       projects: this.state.projects.map((project, pIndex) => {
-        if (pIndex === index) return {
-          ...project,
-          isOpen: !project.isOpen,
-        }
-        return project;
-      }),
-    });
+        if (pIndex === index)
+          return {
+            ...project,
+            isOpen: !project.isOpen
+          }
+        return project
+      })
+    })
   }
 
   clickWithNoPropagation(e) {
-    e.nativeEvent.stopImmediatePropagation();
-    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation()
+    e.stopPropagation()
+  }
+  async setNewAutoRefreshInterval(ref) {
+    // Interval must be set in seconds
+    const newInterval = parseInt(ref) * 1000
+
+    await clearInterval(this.state.authoRefreshIntervalId)
+    await this.setState({ authoRefreshIntervalId: null })
+    await this.autoRefreshProjectStatuses(newInterval)
   }
 
   render = () => {
-    let addProject = this.addProject;
+    let addProject = this.addProject
+    let newInterval = null
 
     return (
       <div>
-        <AddProject addProject={(project) => addProject(project)} />
+        <AddProject addProject={project => addProject(project)} />
         <Filter
           projects={this.state.projects}
           handleProjectClick={this.handleProjectClick.bind(this)}
           onRemoveClick={this.onRemoveClick.bind(this)}
         />
+        <div className='interval-setter'>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              this.setNewAutoRefreshInterval(newInterval.value)
+            }}
+          >
+            <input
+              className='interval-input'
+              type='number'
+              placeholder='Set new refresh interval'
+              ref={ref => {
+                newInterval = ref
+              }}
+            />
+            <input
+              className='interval-button'
+              type='submit'
+              value='Set Interval'
+            />
+          </form>
+        </div>
       </div>
-    );
-  };
+    )
+  }
 }

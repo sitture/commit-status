@@ -5,15 +5,15 @@
   color: black;
   background: #eee;
   font-family: 'Cairo', cursive;
-  font-weight: bold
+  font-weight: bold;
 }
 
 .project a:link {
-  color: black
+  color: black;
 }
 
 .project a:visited {
-  color: black
+  color: black;
 }
 
 .project span.success {
@@ -28,12 +28,38 @@
   color: red;
 }
 
-.project button.remove{
+.project button.remove {
   color: red;
   border: none;
   background-color: transparent;
   cursor: pointer;
   margin-left: 10px;
   font-weight: bold;
-  font-size: .9rem;
+  font-size: 0.9rem;
+}
+.interval-setter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 9px;
+  max-width: 300px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.interval-setter form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.interval-setter input {
+  border: 0;
+  padding: 0.6rem;
+}
+.interval-setter .interval-input {
+  border-radius: 3px 0 0 3px;
+  flex-shrink: 1;
+  width: 100%;
+}
+.interval-setter .interval-button {
+  border-radius: 0 3px 3px 0;
 }
