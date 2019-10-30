@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import './App.css';
-import Toggle from './components/CommonComponents/Toggle';
+import Toggle from './components/RefreshToggle/Toggle';
 import Header from './components/Header/Header';
 import ProjectList from './components/ProjectList/ProjectList';
 
