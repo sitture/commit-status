@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Helmet, HelmetProvider} from 'react-helmet';
+import { Helmet, HelmetProvider} from 'react-helmet-async';
 import './App.css';
 import Toggle from './components/RefreshToggle/Toggle';
 import Header from './components/Header/Header';
