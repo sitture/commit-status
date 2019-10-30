@@ -209,6 +209,7 @@ export default class ProjectList extends React.Component {
             <input
               className='interval-input'
               type='number'
+              min='2'
               placeholder='Set new refresh interval'
               ref={ref => {
                 newInterval = ref
