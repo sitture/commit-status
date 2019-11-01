@@ -76,7 +76,7 @@ export default class ProjectList extends React.Component {
           console.log('error', reason);
         },
       )
-      .catch(console.log());
+      .catch(console.log);
   };
 
   autoRefreshProjectStatuses = () => {
