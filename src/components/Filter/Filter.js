@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './Filter.css';
 
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
 
-export default class Filter extends Component {
+export default class Filter extends PureComponent {
   printProjectList = proj => {
     return proj.map((project, index) => {
       return (
         <div
-          key={index}
+          key={project.name}
           className={`project ${project.status}`}
           onClick={() => this.props.handleProjectClick(index)}
         >

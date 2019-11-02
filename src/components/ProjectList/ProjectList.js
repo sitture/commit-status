@@ -70,6 +70,7 @@ export default class ProjectList extends React.Component {
         params
       );
     });
+
     Promise.all(promiseArray)
       .then(
         results => {
@@ -99,10 +100,7 @@ export default class ProjectList extends React.Component {
         this.loadProjectStatuses();
       }, 20000);
       this.authoRefreshIntervalId = authoRefreshIntervalId;
-    } else if (
-      !this.state.projects.length &&
-      this.authoRefreshIntervalId
-    ) {
+    } else if (!this.state.projects.length && this.authoRefreshIntervalId) {
       this.stopProjectsAutoRefresh();
     }
   };
@@ -129,17 +127,16 @@ export default class ProjectList extends React.Component {
     };
   }
 
-  addProject = project => {
-    let flag = 0;
-    this.state.projects.forEach(proj => {
-      if (proj.name === project.name && proj.status === project.status) {
-        flag = 1;
-      }
+  addProject = newProject => {
+    const alreadyAdded = this.state.projects.some(project => {
+      return project.name === newProject.name;
     });
 
-    if (!(flag === 1)) {
-      let newArray = [...this.state.projects, project].sort(this.sortProjects);
-      this.addProjectToLocalStorage(project.name);
+    if (!alreadyAdded) {
+      const newArray = [...this.state.projects, newProject].sort(
+        this.sortProjects
+      );
+      this.addProjectToLocalStorage(newProject.name);
 
       this.setState({ projects: newArray });
     }
