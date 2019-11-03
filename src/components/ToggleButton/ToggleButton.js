@@ -10,10 +10,10 @@ const ToggleButton = props => {
           onChange={props.onChange}
           checked={props.checked}
         />
-        <span className="slider round"></span>
+        <span className="slider round" />
       </label>
       <span className="slider-text">
-        {props.checked ? 'Disable Auto Refresh' : 'Enabel Auto Refresh'}
+        {props.checked ? 'Disable Auto Refresh' : 'Enable Auto Refresh'}
       </span>
     </div>
   );
