@@ -73,18 +73,27 @@ export default class ProjectList extends React.Component {
     Promise.all(promiseArray)
       .then(
         results => {
-          const sortedProjects = results
-            .map(function(project) {
-              return {
-                name: project.data.repository.full_name,
-                status: project.data.state,
-              };
-            })
-            .sort(this.sortProjects);
-
-          this.setState({
-            projects: sortedProjects,
+          const sortedProjects = results.map(project => {
+            return {
+              name: project.data.repository.full_name,
+              status: project.data.state,
+            };
           });
+
+          const updatedProjects = [...this.state.projects];
+          let shouldUpdateState = false;
+          sortedProjects.forEach((project, index) => {
+            if (updatedProjects[index].status !== project.status) {
+              updatedProjects[index].status = project.status;
+              shouldUpdateState = true;
+            }
+          });
+
+          if (shouldUpdateState) {
+            this.setState({
+              projects: updatedProjects,
+            });
+          }
         },
         reason => {
           console.log('error', reason);
