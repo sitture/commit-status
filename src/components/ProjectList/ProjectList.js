@@ -11,29 +11,43 @@ export default class ProjectList extends React.Component {
 
   state = {
     projects: [],
-    authoRefreshIntervalId: null
   };
+
+  authoRefreshIntervalId = null;
 
   componentDidMount = () => {
     this.loadProjects();
-    this.autoRefreshProjectStatuses();
+    if (this.props.refreshEnabeledGlobally) {
+      this.autoRefreshProjectStatuses();
+    }
   };
 
   componentWillUnmount = () => {
-    clearInterval(this.state.authoRefreshIntervalId);
-  }
+    this.stopProjectsAutoRefresh();
+  };
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {
-    if(prevState.projects.length !== this.state.projects.length) {
+    if (
+      this.props.refreshEnabeledGlobally &&
+      (!this.authoRefreshIntervalId ||
+        prevState.projects.length !== this.state.projects.length)
+    ) {
       this.autoRefreshProjectStatuses();
+    } else if (!this.props.refreshEnabeledGlobally) {
+      this.stopProjectsAutoRefresh();
     }
-  }
+  };
+
+  stopProjectsAutoRefresh = () => {
+    clearInterval(this.authoRefreshIntervalId);
+    this.authoRefreshIntervalId = null;
+  };
 
   loadProjects = () => {
     const projects = this.getProjectsFromLocalStorage();
 
     const sortedProjects = projects
-      .map((project) => {
+      .map(project => {
         return { name: project, status: this.DEFAULT_STATUS };
       })
       .sort(this.sortProjects);
@@ -50,17 +64,17 @@ export default class ProjectList extends React.Component {
       };
     }
 
-    let promiseArray = this.state.projects.map((project) => {
+    let promiseArray = this.state.projects.map(project => {
       return axios.get(
         `https://api.github.com/repos/${project.name}/commits/master/status`,
-        params,
+        params
       );
     });
     Promise.all(promiseArray)
       .then(
-        (results) => {
+        results => {
           const sortedProjects = results
-            .map(function (project) {
+            .map(function(project) {
               return {
                 name: project.data.repository.full_name,
                 status: project.data.state,
@@ -72,24 +86,26 @@ export default class ProjectList extends React.Component {
             projects: sortedProjects,
           });
         },
-        (reason) => {
+        reason => {
           console.log('error', reason);
-        },
+        }
       )
       .catch(console.log);
   };
 
   autoRefreshProjectStatuses = () => {
-    if(this.state.projects.length && !this.state.authoRefreshIntervalId) {
+    if (this.state.projects.length && !this.authoRefreshIntervalId) {
       const authoRefreshIntervalId = setInterval(() => {
         this.loadProjectStatuses();
-      }, 20000)
-      this.setState({authoRefreshIntervalId})
-    } else if(!this.state.projects.length && this.state.authoRefreshIntervalId) {
-      clearInterval(this.state.authoRefreshIntervalId);
-      this.setState({authoRefreshIntervalId: null})
+      }, 20000);
+      this.authoRefreshIntervalId = authoRefreshIntervalId;
+    } else if (
+      !this.state.projects.length &&
+      this.authoRefreshIntervalId
+    ) {
+      this.stopProjectsAutoRefresh();
     }
-  }
+  };
 
   sortProjects = (a, b) => {
     if (a.name < b.name) return -1;
@@ -98,22 +114,24 @@ export default class ProjectList extends React.Component {
   };
 
   onRemoveClick(name) {
-    return (event) => {
+    return event => {
       event.stopPropagation();
 
-      let filteredArray = this.state.projects.filter((project) => project.name !== name)
+      let filteredArray = this.state.projects.filter(
+        project => project.name !== name
+      );
 
       this.removeProjectFromLocalStorage(name);
 
       this.setState({
-        projects: filteredArray
-      })
-    }
+        projects: filteredArray,
+      });
+    };
   }
 
-  addProject = (project) => {
+  addProject = project => {
     let flag = 0;
-    this.state.projects.forEach((proj) => {
+    this.state.projects.forEach(proj => {
       if (proj.name === project.name && proj.status === project.status) {
         flag = 1;
       }
@@ -137,32 +155,33 @@ export default class ProjectList extends React.Component {
     return JSON.parse(projects);
   }
 
-  addProjectToLocalStorage = (projectName) => {
+  addProjectToLocalStorage = projectName => {
     const projects = this.getProjectsFromLocalStorage();
     projects.push(projectName);
 
     localStorage.setItem(this.LS_PROJECTS_KEY, JSON.stringify(projects));
   };
 
-  removeProjectFromLocalStorage = (projectName) => {
+  removeProjectFromLocalStorage = projectName => {
     const projects = this.getProjectsFromLocalStorage();
     const updatedProjectsList = projects.filter(
-      (project) => project !== projectName,
+      project => project !== projectName
     );
 
     localStorage.setItem(
       this.LS_PROJECTS_KEY,
-      JSON.stringify(updatedProjectsList),
+      JSON.stringify(updatedProjectsList)
     );
   };
 
   handleProjectClick(index) {
     this.setState({
       projects: this.state.projects.map((project, pIndex) => {
-        if (pIndex === index) return {
-          ...project,
-          isOpen: !project.isOpen,
-        }
+        if (pIndex === index)
+          return {
+            ...project,
+            isOpen: !project.isOpen,
+          };
         return project;
       }),
     });
@@ -178,11 +197,12 @@ export default class ProjectList extends React.Component {
 
     return (
       <div>
-        <AddProject addProject={(project) => addProject(project)} />
+        <AddProject addProject={project => addProject(project)} />
         <Filter
           projects={this.state.projects}
           handleProjectClick={this.handleProjectClick.bind(this)}
           onRemoveClick={this.onRemoveClick.bind(this)}
+          refreshEnabeledGlobally={this.props.refreshEnabeledGlobally}
         />
       </div>
     );

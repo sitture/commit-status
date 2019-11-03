@@ -3,8 +3,19 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import Header from './components/Header/Header';
 import ProjectList from './components/ProjectList/ProjectList';
+import ToggleButton from './components/ToggleButton/ToggleButton';
 
 export default class App extends Component {
+  state = {
+    refreshEnabeledGlobally: true,
+  };
+
+  handleToggleRefreshEnabeledGlobally = () => {
+    this.setState(prevState => {
+      return { refreshEnabeledGlobally: !prevState.refreshEnabeledGlobally };
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -21,8 +32,15 @@ export default class App extends Component {
             title="CommitStatus"
           />
         </HelmetProvider>
+        <ToggleButton
+          className="toggleAutoRefresh"
+          checked={this.state.refreshEnabeledGlobally}
+          onChange={this.handleToggleRefreshEnabeledGlobally}
+        />
         <Header />
-        <ProjectList/>
+        <ProjectList
+          refreshEnabeledGlobally={this.state.refreshEnabeledGlobally}
+        />
       </div>
     );
   }
