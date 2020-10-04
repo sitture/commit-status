@@ -8,6 +8,8 @@ A React based simple app that shows a list of projects with their Github commit 
 
 >**Example app**: https://sitture.github.io/commit-status/
 
+![commit-status](screenshot.png)
+
 ## Running Locally
 
 ```sh
