@@ -38,4 +38,7 @@
 
 .react-tabs__tab-panel--selected {
     display: block;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
 }

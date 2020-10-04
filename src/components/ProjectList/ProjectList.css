@@ -1,11 +1,22 @@
 .project {
   display: block;
+  font-size: 20px;
   padding: 10px;
   margin: 0 0 10px 0;
   color: black;
   background: #eee;
   font-family: 'Cairo', cursive;
-  font-weight: bold
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: rgba(40, 63, 69, 0.06) 0px 3px 6px;
+}
+
+.project a {
+  text-decoration: none;
+}
+
+.project a:hover {
+  text-decoration: underline;
 }
 
 .project a:link {
@@ -36,6 +47,6 @@
   cursor: pointer;
   margin-left: 10px;
   font-weight: bold;
-  font-size: .9rem;
+  font-size: 20px;
   vertical-align: bottom;
 }
