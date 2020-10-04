@@ -18,6 +18,7 @@
 
 .project span.success {
   color: green;
+  text-transform: capitalize;
 }
 
 .project span.pending {
@@ -36,4 +37,5 @@
   margin-left: 10px;
   font-weight: bold;
   font-size: .9rem;
+  vertical-align: bottom;
 }
