@@ -1,4 +1,5 @@
 .header {
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,8 +83,15 @@ input:checked + .slider:before {
   margin: 5px;  
 }
 
-.toggleAutoRefresh {
+.refresh-settings-container {
   position: absolute;
   right: 0;
   top:  0;
+  padding: 1rem 1rem 0 0;
+  margin-bottom: 1rem;
+}
+
+.refresh-interval-input {
+  width: 2rem;
+  text-align: center;
 }
