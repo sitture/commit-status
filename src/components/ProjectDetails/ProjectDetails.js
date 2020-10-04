@@ -23,15 +23,15 @@ export default class ProjectDetails extends Component {
       });
   };
 
-  componentDidUpdate = () => {
+  componentDidUpdate = (prevProps) => {
     if (
-      this.props.refreshEnabeledGlobally &&
-      this.state.shouldRefresh &&
-      !this.interval
+      (this.props.isRefreshEnabled && this.state.shouldRefresh && !this.interval) ||
+      prevProps.refreshIntervalMillis !== this.props.refreshIntervalMillis
     ) {
       // Refresh is allowed globally, this component should refresh, but is not refreshing
+      this.stopLocalAutoRefresh();
       this.startLocalAutoRefresh();
-    } else if (!this.props.refreshEnabeledGlobally && this.interval) {
+    } else if (!this.props.isRefreshEnabled && this.interval) {
       // Refresh is NOT allowed globally, but this project is refreshing
       this.stopLocalAutoRefresh();
     }
@@ -53,12 +53,12 @@ export default class ProjectDetails extends Component {
       axios
         .get(`https://api.github.com/repos/${this.props.name}/commits`, params)
         .then(data => this.setState({ commitDetails: data.data }));
-    }, 30000); // Refresh every 30 seconds
+    }, this.props.refreshIntervalMillis);
   };
 
   toggleAutoRefresh(e) {
     e.stopPropagation(); // Prevent the click event from being fired on the parent elements as well
-    if (!this.props.refreshEnabeledGlobally) {
+    if (!this.props.isRefreshEnabled) {
       // Should not be able to change state if refresh is disabeled globally
       return;
     }
@@ -72,7 +72,7 @@ export default class ProjectDetails extends Component {
       () => {
         this.stopLocalAutoRefresh();
 
-        if (this.state.shouldRefresh && this.props.refreshEnabeledGlobally) {
+        if (this.state.shouldRefresh && this.props.isRefreshEnabled) {
           this.startLocalAutoRefresh();
         }
       }
@@ -88,7 +88,7 @@ export default class ProjectDetails extends Component {
       );
     }
     let toggleMessage = 'Toggle Auto Refresh OFF';
-    if (!this.props.refreshEnabeledGlobally) {
+    if (!this.props.isRefreshEnabled) {
       toggleMessage = 'Refresh Disabeled Globally';
     } else if (!this.state.shouldRefresh) {
       toggleMessage = 'Toggle Auto Refresh ON';

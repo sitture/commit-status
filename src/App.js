@@ -3,18 +3,25 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import Header from './components/Header/Header';
 import ProjectList from './components/ProjectList/ProjectList';
-import ToggleButton from './components/ToggleButton/ToggleButton';
+import RefreshSettings from './components/RefreshSettings';
 
 export default class App extends Component {
   state = {
-    refreshEnabeledGlobally: true,
+    isRefreshEnabled: true,
+    refreshIntervalSeconds: 30,
   };
 
-  handleToggleRefreshEnabeledGlobally = () => {
+  handleRefreshToggleChange = () => {
     this.setState(prevState => {
-      return { refreshEnabeledGlobally: !prevState.refreshEnabeledGlobally };
+      return { isRefreshEnabled: !prevState.isRefreshEnabled };
     });
   };
+
+  handleRefreshIntervalChange = (event) => {
+    this.setState({refreshIntervalSeconds: event.target.value});
+  };
+
+  getRefreshIntervalInMilliSeconds = () => this.state.refreshIntervalSeconds * 1000;
 
   render() {
     return (
@@ -32,14 +39,16 @@ export default class App extends Component {
             title="CommitStatus"
           />
         </HelmetProvider>
-        <ToggleButton
-          className="toggleAutoRefresh"
-          checked={this.state.refreshEnabeledGlobally}
-          onChange={this.handleToggleRefreshEnabeledGlobally}
+        <RefreshSettings
+          isRefreshEnabled={this.state.isRefreshEnabled}
+          refreshIntervalSeconds={this.state.refreshIntervalSeconds}
+          onRefreshIntervalChange={this.handleRefreshIntervalChange}
+          onRefreshToggleChange={this.handleRefreshToggleChange}
         />
         <Header />
         <ProjectList
-          refreshEnabeledGlobally={this.state.refreshEnabeledGlobally}
+          isRefreshEnabled={this.state.isRefreshEnabled}
+          refreshIntervalMillis={this.getRefreshIntervalInMilliSeconds()}
         />
       </div>
     );

@@ -30,7 +30,8 @@ export default class Filter extends PureComponent {
           {project.isOpen && (
             <ProjectDetails
               name={project.name}
-              refreshEnabeledGlobally={this.props.refreshEnabeledGlobally}
+              isRefreshEnabled={this.props.isRefreshEnabled}
+              refreshIntervalMillis={this.props.refreshIntervalMillis}
             />
           )}
         </div>

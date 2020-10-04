@@ -17,7 +17,7 @@ export default class ProjectList extends React.Component {
 
   componentDidMount = () => {
     this.loadProjects();
-    if (this.props.refreshEnabeledGlobally) {
+    if (this.props.isRefreshEnabled) {
       this.autoRefreshProjectStatuses();
     }
   };
@@ -28,12 +28,15 @@ export default class ProjectList extends React.Component {
 
   componentDidUpdate = (prevProps, prevState, snapshot) => {
     if (
-      this.props.refreshEnabeledGlobally &&
+      this.props.isRefreshEnabled &&
       (!this.authoRefreshIntervalId ||
-        prevState.projects.length !== this.state.projects.length)
+        prevState.projects.length !== this.state.projects.length ||
+        prevState.refreshIntervalMillis !== this.props.refreshIntervalMillis
+      )
     ) {
+      this.stopProjectsAutoRefresh();
       this.autoRefreshProjectStatuses();
-    } else if (!this.props.refreshEnabeledGlobally) {
+    } else if (!this.props.isRefreshEnabled) {
       this.stopProjectsAutoRefresh();
     }
   };
@@ -107,7 +110,7 @@ export default class ProjectList extends React.Component {
     if (this.state.projects.length && !this.authoRefreshIntervalId) {
       const authoRefreshIntervalId = setInterval(() => {
         this.loadProjectStatuses();
-      }, 20000);
+      }, this.props.refreshIntervalMillis);
       this.authoRefreshIntervalId = authoRefreshIntervalId;
     } else if (!this.state.projects.length && this.authoRefreshIntervalId) {
       this.stopProjectsAutoRefresh();
@@ -208,7 +211,8 @@ export default class ProjectList extends React.Component {
           projects={this.state.projects}
           handleProjectClick={this.handleProjectClick.bind(this)}
           onRemoveClick={this.onRemoveClick.bind(this)}
-          refreshEnabeledGlobally={this.props.refreshEnabeledGlobally}
+          isRefreshEnabled={this.props.isRefreshEnabled}
+          refreshIntervalMillis={this.props.refreshIntervalMillis}
         />
       </div>
     );
