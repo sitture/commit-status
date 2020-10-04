@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Minus } from 'react-feather';
+import { Delete } from 'react-feather';
 import './Filter.css';
 
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
@@ -25,8 +25,7 @@ export default class Filter extends PureComponent {
           <button
             className="remove"
             onClick={this.props.onRemoveClick(project.name)}
-          >
-            <Minus />
+          ><Delete />
           </button>
           {project.isOpen && (
             <ProjectDetails
