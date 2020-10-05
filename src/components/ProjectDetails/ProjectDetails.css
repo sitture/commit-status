@@ -4,24 +4,27 @@
 
 .ProjectDetails .autoRefreshButton {
   position: absolute;
-  top: 0;
-  right: 0;
-  color: white;
-  outline: none;
-  border: none;
-  background-color: #0D65CA;
-  padding: 5px;
+    top: 0;
+    right: 0;
+    color: white;
+    outline: none;
+    border: none;
+    background-color: black;
+    padding: 10px 20px;
+    font-weight: 900;
+    border-radius: 4px;
 }
 
 
 table {
     font-family: arial, sans-serif;
-    font-size: 0.8rem;
+    font-size: 16px;
     font-weight: normal;
     border-collapse: collapse;
-    width: 80%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 30px;
   }
   
   td, th {
@@ -32,4 +35,23 @@ table {
   
   tr:nth-child(even) {
     background-color: #dddddd;
+  }
+
+  .card {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #dddddd;
+    padding: 25px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(40, 63, 69, 0.06);
+  }
+
+  .card .name {
+    width: 130px;
+  }
+
+  .card .message {
+    width: 440px;
   }

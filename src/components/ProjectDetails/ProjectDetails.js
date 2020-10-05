@@ -80,6 +80,7 @@ export default class ProjectDetails extends Component {
   }
 
   render() {
+    const tableHeading = ["Commiter", "Message", "Date", "changes"]
     if (!this.state.commitDetails) {
       return (
         <div>
@@ -102,34 +103,35 @@ export default class ProjectDetails extends Component {
           {toggleMessage}
         </button>
         Commit Details
-        <table>
-          <thead>
-            <tr>
-              <th>Committer</th>
-              <th>Message</th>
-              <th>Date</th>
-              <th>Changes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.commitDetails.map((details, index) => (
-              <tr key={index}>
-                <td>{details.commit.committer.name}</td>
-                <td>{details.commit.message}</td>
-                <td>{details.commit.committer.date}</td>
-                <td>
-                  <a
-                    href={details.html_url}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    See changes here
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="card">
+          {tableHeading.map((item, index) => {
+            return (
+                <div className="heading">
+                  {item}
+                </div>
+            )
+          })}
+        </div>
+        <div>
+          {this.state.commitDetails.map((details, index) => {
+            return (
+                <div className="card">
+                  <div className="name">{details.commit.committer.name}</div>
+                  <div className="message">{details.commit.message}</div>
+                  <div className="date">{details.commit.committer.date}</div>
+                  <div className="changes">
+                    <a
+                      href={details.html_url}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      See changes here
+                    </a>
+                  </div>
+                </div>
+            )
+          })}
+        </div>
       </div>
     );
   }
