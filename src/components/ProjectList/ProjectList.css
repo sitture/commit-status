@@ -1,14 +1,31 @@
 .project {
   display: block;
   font-size: 20px;
-  padding: 10px;
-  margin: 0 0 10px 0;
-  color: black;
-  background: #eee;
-  font-family: 'Cairo', cursive;
+  color: #000;
   font-weight: bold;
-  border-radius: 4px;
-  box-shadow: rgba(40, 63, 69, 0.06) 0px 3px 6px;
+  justify-content: space-around;;
+  border: 1px solid #dddddd;
+  padding: 25px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(40, 63, 69, 0.06);
+}
+
+.title {
+  color: #000;
+  display: grid;
+}
+
+.row {
+  display: flex;
+  border: 1px solid #dddddd;
+  padding: 25px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(40, 63, 69, 0.06);
+  justify-content: space-around;
 }
 
 .project a {
