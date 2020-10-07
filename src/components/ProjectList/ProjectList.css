@@ -49,7 +49,7 @@
 }
 
 .success .row {
-  background-color: #7CFC00 !important;
+  background-color: green;
 }
 
 .pending .row  {
