@@ -16,43 +16,21 @@
     border-radius: 4px;
 }
 
+.card {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #dddddd;
+  padding: 25px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(40, 63, 69, 0.06);
+}
 
-table {
-    font-family: arial, sans-serif;
-    font-size: 16px;
-    font-weight: normal;
-    border-collapse: collapse;
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+.card .name {
+  width: 130px;
+}
 
-  .card {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #dddddd;
-    padding: 25px;
-    margin: 10px 20px;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 3px 6px rgba(40, 63, 69, 0.06);
-  }
-
-  .card .name {
-    width: 130px;
-  }
-
-  .card .message {
-    width: 440px;
-  }
+.card .message {
+  width: 440px;
+}
