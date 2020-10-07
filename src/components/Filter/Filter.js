@@ -22,9 +22,6 @@ export default class Filter extends PureComponent {
             >
               {project.name}
             </a>{' '}
-            <span className={project.status}>          
-              {project.status}
-            </span>
             <button
               className="remove"
               onClick={this.props.onRemoveClick(project.name)}
