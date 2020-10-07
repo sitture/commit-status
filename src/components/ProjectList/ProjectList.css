@@ -45,16 +45,19 @@
 }
 
 .project span.success {
-  color: green;
   text-transform: capitalize;
 }
 
-.project span.pending {
-  color: orange;
+.success .row {
+  background-color: green;
 }
 
-.project span.failure {
-  color: red;
+.pending .row  {
+  background-color: orange;
+}
+
+.failure .row {
+  background-color:red;
 }
 
 .project button.remove{
