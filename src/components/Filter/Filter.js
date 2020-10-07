@@ -14,19 +14,24 @@ export default class Filter extends PureComponent {
           className={`project ${project.status}`}
           onClick={() => this.props.handleProjectClick(index)}
         >
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`https://github.com/${project.name}`}
-          >
-            {project.name}
-          </a>{' '}
-          - <span className={project.status}>{project.status}</span>
-          <button
-            className="remove"
-            onClick={this.props.onRemoveClick(project.name)}
-          ><Delete />
-          </button>
+          <div className="row">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://github.com/${project.name}`}
+            >
+              {project.name}
+            </a>{' '}
+            <span className={project.status}>          
+              {project.status}
+            </span>
+            <button
+              className="remove"
+              onClick={this.props.onRemoveClick(project.name)}
+            >
+              <Delete />
+            </button>
+          </div>
           {project.isOpen && (
             <ProjectDetails
               name={project.name}

@@ -1,5 +1,6 @@
 .ProjectDetails {
   position: relative;
+  margin-top: 50px;
 }
 
 .ProjectDetails .autoRefreshButton {
