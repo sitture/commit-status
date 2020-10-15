@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import Header from './components/Header/Header';
 import ProjectList from './components/ProjectList/ProjectList';
+import AppIcon from './components/AppIcon/AppIcon';
 import RefreshSettings from './components/RefreshSettings';
 
 export default class App extends Component {
@@ -39,6 +40,7 @@ export default class App extends Component {
             title="CommitStatus"
           />
         </HelmetProvider>
+        <AppIcon></AppIcon>
         <RefreshSettings
           isRefreshEnabled={this.state.isRefreshEnabled}
           refreshIntervalSeconds={this.state.refreshIntervalSeconds}
