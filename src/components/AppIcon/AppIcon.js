@@ -12,10 +12,3 @@ const AppIcon = () => {
 };
 
 export default AppIcon;
-// export default class AppIcon extends React.Component {
-//   render() {
-//     return (
-      
-//     );
-//   }
-// }
