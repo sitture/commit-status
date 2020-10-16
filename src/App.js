@@ -1,56 +1,46 @@
-import React, { Component } from 'react';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import './App.css';
-import Header from './components/Header/Header';
-import ProjectList from './components/ProjectList/ProjectList';
-import RefreshSettings from './components/RefreshSettings';
+import React, { createContext, useReducer } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
-export default class App extends Component {
-  state = {
-    isRefreshEnabled: true,
-    refreshIntervalSeconds: 30,
-  };
+import { initialState, reducer } from "./store/reducer";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
 
-  handleRefreshToggleChange = () => {
-    this.setState(prevState => {
-      return { isRefreshEnabled: !prevState.isRefreshEnabled };
-    });
-  };
+export const AuthContext = createContext();
 
-  handleRefreshIntervalChange = (event) => {
-    this.setState({refreshIntervalSeconds: event.target.value});
-  };
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  getRefreshIntervalInMilliSeconds = () => this.state.refreshIntervalSeconds * 1000;
-
-  render() {
-    return (
-      <div className="App">
-        <HelmetProvider>
-          <Helmet
-            htmlAttributes={{ lang: 'en', amp: undefined }}
-            meta={[
-              {
-                name: 'description',
-                content:
-                  'A simple React app that shows a list of projects with their Github commit status and use it as a dashboard to view status of your CI pipelines.',
-              },
-            ]}
-            title="CommitStatus"
-          />
-        </HelmetProvider>
-        <RefreshSettings
-          isRefreshEnabled={this.state.isRefreshEnabled}
-          refreshIntervalSeconds={this.state.refreshIntervalSeconds}
-          onRefreshIntervalChange={this.handleRefreshIntervalChange}
-          onRefreshToggleChange={this.handleRefreshToggleChange}
+  return (
+    <div className="App">
+      <HelmetProvider>
+        <Helmet
+          htmlAttributes={{ lang: "en", amp: undefined }}
+          meta={[
+            {
+              name: "description",
+              content:
+                "A simple React app that shows a list of projects with their Github commit status and use it as a dashboard to view status of your CI pipelines.",
+            },
+          ]}
+          title="CommitStatus"
         />
-        <Header />
-        <ProjectList
-          isRefreshEnabled={this.state.isRefreshEnabled}
-          refreshIntervalMillis={this.getRefreshIntervalInMilliSeconds()}
-        />
-      </div>
-    );
-  }
+      </HelmetProvider>
+      <AuthContext.Provider
+        value={{
+          state,
+          dispatch,
+        }}
+      >
+        <Router>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/" component={Home} />
+          </Switch>
+        </Router>
+      </AuthContext.Provider>
+    </div>
+  );
 }
+
+export default App;

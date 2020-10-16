@@ -9,8 +9,8 @@
 
 .header h1 {
   transition: all 0.4s ease;
-	margin: 20px auto 20px auto;
-	font-family: 'Cairo', cursive;
+  margin: 20px auto 20px auto;
+  font-family: "Cairo", cursive;
 }
 
 .switch {
@@ -36,8 +36,8 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -48,8 +48,8 @@
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .refreshCheckbox {
@@ -57,11 +57,11 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {
@@ -80,15 +80,15 @@ input:checked + .slider:before {
 }
 
 .slider-text {
-  margin: 5px;  
+  margin: 5px;
 }
 
 .refresh-settings-container {
-  position: absolute;
+  display: flex;
+  justify-content: space-between;
   right: 0;
-  top:  0;
-  padding: 1rem 1rem 0 0;
-  margin-bottom: 1rem;
+  top: 0;
+  padding: 1rem;
 }
 
 .refresh-interval-input {
