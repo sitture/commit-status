@@ -51,16 +51,21 @@ export default class AddProject extends React.Component {
       };
     }
     axios
-      .get(
+      .get( 
         `https://api.github.com/repos/${this.state.input}/commits/master/status`,
         params
       )
       .then(data => {
-        let obj = {
-          name: data.data.repository.full_name,
-          status: data.data.state,
-        };
-        this.props.addProject(obj);
+        axios.get(
+          data.data.url,
+          params
+        ).then(latestCommitRefData => { 
+          let obj = {
+            name: latestCommitRefData.data.repository.full_name,
+            status: latestCommitRefData.data.state,
+          };
+          this.props.addProject(obj);
+        })
       })
       .catch(er => {
         if (er.response.status === 403) {
