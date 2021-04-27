@@ -42,3 +42,11 @@
     margin: auto;
     margin-bottom: 20px;
 }
+.project-icon-img {
+    margin: 0 4px 0px 4px;
+    border-radius: 50%;
+    vertical-align: middle;
+    max-width: 64px;
+    min-width: 16px;
+    width: 8vw;
+}

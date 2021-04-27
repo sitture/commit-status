@@ -4,7 +4,7 @@ import { Delete } from 'react-feather';
 import './Filter.css';
 
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
-
+const projectIconMaxSize = 64;
 export default class Filter extends PureComponent {
   printProjectList = proj => {
     return proj.map((project, index) => {
@@ -20,6 +20,7 @@ export default class Filter extends PureComponent {
               rel="noopener noreferrer"
               href={`https://github.com/${project.name}`}
             >
+              <img  className="project-icon-img" src={"https://github.com/" + project.name.substring(0,project.name.indexOf('/')) + ".png?size=" + projectIconMaxSize}></img>
               {project.name}
             </a>{' '}
             <button
