@@ -12,10 +12,17 @@ A React based simple app that shows a list of projects with their Github commit 
 
 ## Running Locally
 
+- Make sure you have created a test app https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app with Authorization callback URL set to `http://localhost:3000/login`
+
 ```sh
+# Run the proxy server locally for github authentication
+node server/index.js
+# Run the application
 yarn install
 yarn start
 ```
+
+Proxy server should now be running at `http://localhost:4000` and commit-status app running at `http://localhost:3000`.
 
 ### Lint & Tests
 
