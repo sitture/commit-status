@@ -13,6 +13,7 @@ A React based simple app that shows a list of projects with their Github commit 
 ## Running Locally
 
 - Make sure you have created a test app https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app with Authorization callback URL set to `http://localhost:3000/login`
+- Update `.env` file with your `CLIENT_ID` and `CLIENT_SECRET` - Please remember to not commit these.
 
 ```sh
 # Run the proxy server locally for github authentication
