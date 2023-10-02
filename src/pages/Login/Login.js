@@ -62,7 +62,7 @@ export default function Login() {
       <section className="container">
         <div>
           <h1>Welcome</h1>
-          <span>Status Commit</span>
+          <span>Commit-Status</span>
           <span>{data.errorMessage}</span>
           <div className="login-container">
             {data.isLoading ? (
@@ -100,26 +100,40 @@ const Wrapper = Styled.section`
     align-items: center;
     height: 100vh;
     font-family: Arial;
+    background-color: #232323;
     
     > div:nth-child(1) {
       display: flex;
+      font-family: Poppins;
       flex-direction: column;
       justify-content: center;
-      background-color: #1e2126;
+      background-color: #333333;
       border-radius: 10px;
       align-items: center;
       box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
       transition: 0.3s;
       width: 25%;
       height: 45%;
+        @media (max-width: 468px) {
+        width: 80%; 
+      }
+      @media (min-width: 468px) and (max-width: 768px) {
+        width: 80%; 
+      }
       > h1 {
-        font-size: 2rem;
+        font-size: 2.7rem;
         margin-bottom: 20px;
+         @media (max-width: 468px) {
+         font-size: 2rem; 
+      }
       }
       > span:nth-child(2) {
-        font-size: 1.1rem;
+        font-size: 1.5rem;
         color: #808080;
         margin-bottom: 70px;
+        @media (max-width: 468px) {
+         font-size: 1.2rem; 
+      }
       }
       > span:nth-child(3) {
         margin: 10px 0 20px;
@@ -167,6 +181,10 @@ const Wrapper = Styled.section`
             transform: rotate(360deg);
           }
         }
+      @media (max-width: 468px) {
+        font-size: 0.8rem;
+        padding:  10px;
+      }
       }
     }
   }
