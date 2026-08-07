@@ -45,6 +45,5 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "gh-pages": "^5.0.0",
     "prettier": "^1.19.1"
-  },
-  "packageManager": "yarn@3.6.0"
+  }
 }
