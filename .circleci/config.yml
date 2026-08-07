@@ -26,7 +26,11 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn install
+      - run: |
+          corepack enable
+          corepack prepare yarn@3.6.0 --activate
+          yarn --version
+          yarn install
 
       - save_cache:
           paths:
