@@ -1,10 +1,10 @@
-import React, { createContext, useReducer } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import React, { createContext, useReducer } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
-import { initialState, reducer } from "./store/reducer";
-import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
+import { initialState, reducer } from './store/reducer';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
 
 export const AuthContext = createContext();
 
@@ -15,12 +15,12 @@ function App() {
     <div className="App">
       <HelmetProvider>
         <Helmet
-          htmlAttributes={{ lang: "en", amp: undefined }}
+          htmlAttributes={{ lang: 'en', amp: undefined }}
           meta={[
             {
-              name: "description",
+              name: 'description',
               content:
-                "A simple React app that shows a list of projects with their Github commit status and use it as a dashboard to view status of your CI pipelines.",
+                'A simple React app that shows a list of projects with their Github commit status and use it as a dashboard to view status of your CI pipelines.',
             },
           ]}
           title="CommitStatus"

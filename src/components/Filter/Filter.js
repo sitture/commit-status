@@ -20,7 +20,15 @@ export default class Filter extends PureComponent {
               rel="noopener noreferrer"
               href={`https://github.com/${project.name}`}
             >
-              <img  className="project-icon-img" src={"https://github.com/" + project.name.substring(0,project.name.indexOf('/')) + ".png?size=" + projectIconMaxSize}></img>
+              <img
+                className="project-icon-img"
+                src={
+                  'https://github.com/' +
+                  project.name.substring(0, project.name.indexOf('/')) +
+                  '.png?size=' +
+                  projectIconMaxSize
+                }
+              ></img>
               {project.name}
             </a>{' '}
             <button

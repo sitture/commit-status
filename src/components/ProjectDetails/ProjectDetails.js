@@ -23,9 +23,11 @@ export default class ProjectDetails extends Component {
       });
   };
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = prevProps => {
     if (
-      (this.props.isRefreshEnabled && this.state.shouldRefresh && !this.interval) ||
+      (this.props.isRefreshEnabled &&
+        this.state.shouldRefresh &&
+        !this.interval) ||
       prevProps.refreshIntervalMillis !== this.props.refreshIntervalMillis
     ) {
       // Refresh is allowed globally, this component should refresh, but is not refreshing
@@ -80,7 +82,7 @@ export default class ProjectDetails extends Component {
   }
 
   render() {
-    const tableHeading = ["Commiter", "Message", "Date", "changes"]
+    const tableHeading = ['Commiter', 'Message', 'Date', 'changes'];
     if (!this.state.commitDetails) {
       return (
         <div>
@@ -105,31 +107,27 @@ export default class ProjectDetails extends Component {
         Commit Details
         <div className="card">
           {tableHeading.map((item, index) => {
-            return (
-                <div className="heading">
-                  {item}
-                </div>
-            )
+            return <div className="heading">{item}</div>;
           })}
         </div>
         <div>
           {this.state.commitDetails.map((details, index) => {
             return (
-                <div className="card">
-                  <div className="name">{details.commit.committer.name}</div>
-                  <div className="message">{details.commit.message}</div>
-                  <div className="date">{details.commit.committer.date}</div>
-                  <div className="changes">
-                    <a
-                      href={details.html_url}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      See changes here
-                    </a>
-                  </div>
+              <div className="card">
+                <div className="name">{details.commit.committer.name}</div>
+                <div className="message">{details.commit.message}</div>
+                <div className="date">{details.commit.committer.date}</div>
+                <div className="changes">
+                  <a
+                    href={details.html_url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    See changes here
+                  </a>
                 </div>
-            )
+              </div>
+            );
           })}
         </div>
       </div>

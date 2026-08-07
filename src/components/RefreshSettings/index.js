@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../App";
+import React, { useContext } from 'react';
+import { AuthContext } from '../../App';
 
-const RefreshSettings = (props) => {
+const RefreshSettings = props => {
   const { dispatch } = useContext(AuthContext);
 
   const handleLogout = () => {
     dispatch({
-      type: "LOGOUT",
+      type: 'LOGOUT',
     });
   };
 

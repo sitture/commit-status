@@ -31,8 +31,7 @@ export default class ProjectList extends React.Component {
       this.props.isRefreshEnabled &&
       (!this.authoRefreshIntervalId ||
         prevState.projects.length !== this.state.projects.length ||
-        prevState.refreshIntervalMillis !== this.props.refreshIntervalMillis
-      )
+        prevState.refreshIntervalMillis !== this.props.refreshIntervalMillis)
     ) {
       this.stopProjectsAutoRefresh();
       this.autoRefreshProjectStatuses();

@@ -1,12 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 
-import Header from "../../components/Header/Header";
-import ProjectList from "../../components/ProjectList/ProjectList";
-import RefreshSettings from "../../components/RefreshSettings";
+import Header from '../../components/Header/Header';
+import ProjectList from '../../components/ProjectList/ProjectList';
+import RefreshSettings from '../../components/RefreshSettings';
 
-import { AuthContext } from "../../App";
-import "../../App.css";
+import { AuthContext } from '../../App';
+import '../../App.css';
 
 export default function Home() {
   const { state } = useContext(AuthContext);
@@ -23,7 +23,7 @@ export default function Home() {
       <RefreshSettings
         isRefreshEnabled={isRefreshEnabled}
         refreshIntervalSeconds={refreshIntervalSeconds}
-        onRefreshIntervalChange={(event) =>
+        onRefreshIntervalChange={event =>
           setRefreshIntervalSeconds(event.target.value)
         }
         onRefreshToggleChange={() => setIsRefreshEnabled(!isRefreshEnabled)}
